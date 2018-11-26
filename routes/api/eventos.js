@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Evento = require('../../controllers/evento')
+var Evento = require('../../controllers/eventoController')
 
 router.get('/', function(req, res, next) {
   Evento.listar()

@@ -2,15 +2,6 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 
-router.get('/', function(req, res, next) {
-    axios.get('http://localhost:4010/api/eventos/')
-        .then( eventos => res.render('index', {eventos: eventos.data}) )
-        .catch( erro => {
-            console.log('Erro na listagem de eventos: ' + erro)
-            res.render('index')
-        })
-});
-
 router.get('/:id', function(req, res, next) {
     axios.get('http://localhost:4010/api/eventos/' + req.params.id)
         .then( evento => res.render('evento', {evento: evento.data}) )

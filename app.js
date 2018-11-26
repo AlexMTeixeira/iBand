@@ -6,11 +6,12 @@ var logger = require('morgan');
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 
-var eventosAPIRouter = require('./routes/api/eventos')
-var eventosRouter = require('./routes/eventos')
+var apiRouter = require('./routes/api/index')
+var adminRouter = require('./routes/admin/index')
+var frontRouter = require('./routes/front/index')
 
 // Ligação à BD
-mongoose.connect('mongodb://127.0.0.1:27017/agenda', {useNewUrlParser: true})
+mongoose.connect('mongodb://127.0.0.1:27017/i_band', {useNewUrlParser: true})
   .then(() => console.log('Mongo ready: ' + mongoose.connection.readyState))
   .catch(() => console.log('Erro na conexão à BD'))
 
@@ -29,8 +30,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/eventos', eventosAPIRouter)
-app.use('/eventos', eventosRouter)
+app.use('/api', apiRouter)
+app.use('/admin', adminRouter)
+app.use('/', frontRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

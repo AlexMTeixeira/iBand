@@ -15,4 +15,4 @@ var EventoSchema = new Schema({
     informacoes: {type: String}
 })
 
-module.exports = mongoose.model('Evento', EventoSchema, 'eventos')
+module.exports = mongoose.model('Evento', EventoSchema, eventos)

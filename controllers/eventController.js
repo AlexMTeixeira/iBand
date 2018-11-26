@@ -1,4 +1,4 @@
-var Evento = require('../models/evento')
+var Evento = require('../models/eventoModel')
 
 // Lista de eventos
 module.exports.listar = () => {
