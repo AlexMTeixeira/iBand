@@ -1,11 +1,11 @@
 var routes = require('express').Router();
-var eventosRouter = require('./eventos')
+var eventsRouter = require('./events')
 
 routes.get('/', (req, res) => {
   res.status(200).json({ message: 'Connected!' });
 });
 
-routes.use('/eventos', eventos);
+routes.use('/events', eventsRouter);
 
 // routes.use('/noticias', noticias);
 

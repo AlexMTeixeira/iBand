@@ -1,40 +1,40 @@
-var Evento = require('../models/eventoModel')
+var Event = require('../models/eventModel')
 
 // Lista de eventos
 module.exports.listar = () => {
-    return Evento
+    return Event
         .find()
-        .sort({data: -1})
+        .sort({date: -1})
         .exec()
 }
 
 // Lista de eventos por Tipo
 module.exports.listarTipo = tipo => {
-    return Evento
+    return Event
         .find({tipo: tipo})
-        .sort({data: -1})
+        .sort({date: -1})
         .exec()
 }
 
 // Lista de eventos com Data maior que uma dada
 module.exports.listarData = data => {
-    return Evento
-        .find({data: {$gte: data}})
-        .sort({data: -1})
+    return Event
+        .find({date: {$gte: date}})
+        .sort({date: -1})
         .exec()
 }
 
 // Lista de eventos por Data
 module.exports.listarDataExata = data => {
-    return Evento
-        .find({data: data})
-        .sort({data: -1})
+    return Event
+        .find({date: date})
+        .sort({date: -1})
         .exec()
 }
 
 // Devolve a informação do evento por id
 module.exports.consultar = id => {
-    return Evento
+    return Event
         .findOne({_id: id})
         .exec()
 }
@@ -51,6 +51,6 @@ module.exports.consultar = id => {
     })
 } */
 
-module.exports.inserir = evento => {
-    return Evento.create(evento)
+module.exports.inserir = event => {
+    return Event.create(event)
 }

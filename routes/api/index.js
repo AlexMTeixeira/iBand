@@ -1,7 +1,7 @@
 var routes = require('express').Router();
-var eventosRouter = require('./eventos')
+var eventsRouter = require('./events')
 
-routes.use('/eventos', eventos);
+routes.use('/eventos', eventsRouter);
 
 // routes.use('/noticias', noticias);
 
