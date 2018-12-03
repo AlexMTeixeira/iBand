@@ -3,40 +3,40 @@ var Event = require('../models/eventModel')
 // Lista de eventos
 module.exports.listar = () => {
     return Event
-        .find()
-        .sort({date: -1})
-        .exec()
+    .find()
+    .sort({date: -1})
+    .exec()
 }
 
 // Lista de eventos por Tipo
 module.exports.listarTipo = tipo => {
     return Event
-        .find({tipo: tipo})
-        .sort({date: -1})
-        .exec()
+    .find({tipo: tipo})
+    .sort({date: -1})
+    .exec()
 }
 
 // Lista de eventos com Data maior que uma dada
 module.exports.listarData = data => {
     return Event
-        .find({date: {$gte: date}})
-        .sort({date: -1})
-        .exec()
+    .find({date: {$gte: date}})
+    .sort({date: -1})
+    .exec()
 }
 
 // Lista de eventos por Data
 module.exports.listarDataExata = data => {
     return Event
-        .find({date: date})
-        .sort({date: -1})
-        .exec()
+    .find({date: date})
+    .sort({date: -1})
+    .exec()
 }
 
 // Devolve a informação do evento por id
 module.exports.consultar = id => {
     return Event
-        .findOne({_id: id})
-        .exec()
+    .findOne({_id: id})
+    .exec()
 }
 
 
