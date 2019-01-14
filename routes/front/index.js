@@ -7,13 +7,9 @@ router.get('/', (req, res) => {
 
 router.use('/events', eventsRouter);
 
-// routes.use('/noticias', noticias);
-
-// routes.use('/agenda', agenda);
+// routes.use('/news', newsRouter);
+// routes.use('/pieces', piecesRouter);
 
 
 module.exports = router;
-
-
-
 

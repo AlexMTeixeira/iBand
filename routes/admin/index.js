@@ -12,4 +12,12 @@ router.get('/', (req, res) => {
 // routes.use('/calendar', calendarRouter);
 
 
+get(':object/:id')(function() {
+    getObjectByName(':object')
+
+    ObjetcModel.getById()
+
+    
+}) 
+
 module.exports = router;
