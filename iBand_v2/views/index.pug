@@ -6,7 +6,7 @@ block content
       b.w3-bar-item.w3-mobile iBand
       .w3-right.w3-mobile
         button.w3-bar-item.w3-button(onclick="document.getElementById('loginForm').style.display='block'" style="width:auto;") LogIn
-        button.w3-bar-item.w3-button(id='register') Register
+        button.w3-bar-item.w3-button(onclick="document.getElementById('registerForm').style.display='block'" style="width:auto;") Register
 
   //- HEADER
   .w3-container.w3-theme-l1
@@ -19,18 +19,37 @@ block content
       p Powered by Group ?? For PRI
 
 
-  //- Login TAB FORM
+  //- Login TAB Form
   .modal(id="loginForm")
     form.modal-content.animate
       .crosscontainer
-        span.close(onclick="document.getElementById('loginForm').style.display='none'", title="Cloase Modal") &times;
+        span.close(onclick="document.getElementById('loginForm').style.display='none'", title="Close Modal") &times;
       .container
         label(for="uname")
           b Username
-        input(type='text', placeholder="Enter Username", name="uname", required)
+        input(type='text', placeholder="Enter Username", name="uname", id="usernameL" ,required)
         label(for="psw")
           b Password
-        input(type='password', placeholder="Enter Password", name='psw', required)
-        button.w3-theme-d5(type="submit") Login
-
+        input(type='password', placeholder="Enter Password", name='psw', id="passwordL" required)
+        button.w3-theme-d5(id="loginButton") Login
   
+  //- Register TAB Form
+  .modal(id="registerForm")
+    form.modal-content.animate
+      .crosscontainer
+        span.close(onclick="document.getElementById('registerForm').style.display='none'", title="Close Modal") &times;
+      .container
+        label(for="uname")
+          b Username
+        input(type='text', placeholder="Enter Username", name="uname", id="usernameR" ,required)
+        label(for="psw")
+          b Password
+        input(type='password', placeholder="Enter Password", name='psw', id="passwordR" required)
+        labl(for="name")  
+          b Name
+        input(type='text', placeholder="Enter Username", name="name", id="name" ,required)
+        label(for="tipo")
+          b User Type
+        input.w3-radio.w3-light-grey(type='radio', name='tipo', value='consumidor')
+        input.w3-radio.w3-light-grey(type='radio', name='tipo', value='produtor') 
+        button.w3-theme-d5(id="RegisterButton") Register

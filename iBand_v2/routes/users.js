@@ -7,5 +7,4 @@ router.get('/', passport.authenticate('jwt', {session: false}) , (req, res, next
   res.render('index');
 });
 
-
 module.exports = router;
