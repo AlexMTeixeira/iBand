@@ -2,8 +2,8 @@ var User = require('../models/userModel')
 
 module.exports.list = () => {
     return User
-        .find()
-        .exec()
+            .find()
+            .exec()
 }
 
 module.exports.insert = user => {

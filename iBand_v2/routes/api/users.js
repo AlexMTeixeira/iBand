@@ -29,7 +29,6 @@ router.post('/', passport.authenticate('registo', {
 router.post('/login', async (req,res,next) => {
     passport.authenticate('login', async (err,user,info)=> {
         try {
-            console.log('coisas')
             if(err || !user){
                 const error = new Error('An Error Occured')
                 return next(error);
