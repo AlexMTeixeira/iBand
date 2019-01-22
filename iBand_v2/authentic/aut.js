@@ -1,44 +1,59 @@
+
 var passport = require('passport')
 var localStrategy = require('passport-local').Strategy
-var UserModel = require('../models/user')
+var UserController = require('../controllers/usersController')
 
 // Registo do utilizador
 passport.use('registo', new localStrategy ({
-    usernameField: 'email',
-    passwordField: 'password',
-    nameField: 'name',
-    utypeField: 'utype',
-    validField: 'valid'
-}, async (email, password, name, utype, done) => {
+    usernameField : 'email',
+    passwordField : 'password',
+    passReqToCallback : true
+}, async (req, email, password, done) => {
     try {
-        user = await UserModel.create({email, password, name, utype, valid: false})
+        console.log('cenas')
+        if (typeof email === "undefined" && !email)
+            throw new Error ("Email não definido")
+        if (typeof password === "undefined" && !password)
+            throw new Error ("Password não definida")
+        if (typeof req.body.name === "undefined" && !req.body.name)
+            throw new Error ("Nome não definido")
+        if (typeof req.body.utype === "undefined" && !req.body.utype)
+            throw new Error ("Tipo não definido")
+
+        let name = req.body.name
+        let utype = req.body.utype
+
+        let user = await UserController.insert({email, password, name, utype, valid : false})
+
+        if (!user)
+            throw new Error("Erro a criar utilizador!")
+
         return done(null, user)
     }
     catch(erro) {
-        return done(erro)
+        console.log(erro)
+        return done(erro,false, {message: erro})
     }
 }))
 
 // Login de utilizadores
 passport.use('login', new localStrategy ({
     usernameField: 'email',
-    passwordField: 'password',
-    validField: 'valid'
-}, async (email, password, valid, done) => {
+    passwordField: 'password'
+}, async (email, password, done) => {
     try {
-        user = await UserModel.findOne({email})
-        if(!user) return done(null,false, {message: "Utilizador não encontrado!"})
-        
-        var verify = await user.isvalidPassword(password)
-        if(!verify) return done(null, false, {message: "Password inválida!"}) 
-
-        var validated = user.valid
-        if(!validated) return done(null,false,{message: "User not autenticated by Admin!"})
+        if (typeof email === "undefined" && !email)
+            throw new Error ("Email não definido")
+        if (typeof password === "undefined" && !password)
+            throw new Error ("Password não definida")
+    
+        user = await UserController.validatePassword(email, password)
 
         return done(null, user, {message: "Utilizador Autenticado!"})
     }
     catch(erro) {
-        return done(erro)
+        console.log(erro)
+        return done(erro,false, {message: erro})
     }
 }))
 
@@ -58,8 +73,7 @@ passport.use('jwt', new JWTstrategy({
 }, async (token,done) => {
     try{
         return done(null, token.user)
-    }
-    catch (erro) {
+    } catch (erro) {
         return done(erro)
     }
 }))

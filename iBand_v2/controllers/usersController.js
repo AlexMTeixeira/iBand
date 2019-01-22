@@ -1,4 +1,4 @@
-var User = require('../models/user')
+var User = require('../models/userModel')
 
 module.exports.list = () => {
     return User
@@ -20,4 +20,15 @@ module.exports.getUbyId = id => {
     return User
         .findOne({_id: id})
         .exec()
+}
+
+module.exports.validatePassword = async (email, password) => {
+    user = await this.getUbyEmail(email)
+    if(!user) 
+        throw new Error("Utilizador não encontrado!")
+
+    if (!user.isValidPassword(password))
+        throw new Error ("Invalid password")
+
+    return user
 }
