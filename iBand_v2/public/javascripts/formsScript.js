@@ -10,17 +10,13 @@ window.onclick = function(event) {
 }
 
 $(()=>{
-    $('#loginButton').click(e=>{
+    $('#LoginButton').click(e=>{
         e.preventDefault()
-        ajaxPost()
-    })
-
-    function ajaxPost() {
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
             url: 'http://localhost:8000/api/users/login',
-            data: JSON.stringify({email: $('#usernameL').val(), password: $('#passwordL').val()}),
+            data: JSON.stringify({email: $('#emailL').val(), password: $('#passwordL').val()}),
             success: p => {
                 alert('LogIn Done')
                 window.location.href='http://localhost:8000/users/';
@@ -30,23 +26,24 @@ $(()=>{
                 
             }
         })
-    }
+    })
 
-    function formPost() {
-        var form_data = new FormData($('#myUploadForm')[0]);
+    $('#RegisterButton').click(e=>{
+        e.preventDefault()
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:6008/add',
-            processData: false,
-            contentType: false,
-            async: true,
-            cache: false,
-            data: form_data,
-            success: p => {alert('File Sent to System: '+p)},
+            contentType: 'application/json',
+            url: 'http://localhost:8000/api/users/',
+            data: JSON.stringify({email: $('#emailR').val(), password: $('#passwordR').val(), name: $('#nameR').val(), utype: parseInt($('input[name=type]:checked').val())}),
+            success: p => {
+                alert('Register Done')
+                window.location.href='http://localhost:8000/';
+            },
             error: e => {
-                alert('2--> Erro no post: ' + JSON.stringify(e))
-                console.log('ERRO: '+ e)
+                alert('Email Already Taken!')
+                
             }
         })
-    }
+    })
+
 })

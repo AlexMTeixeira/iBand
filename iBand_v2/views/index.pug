@@ -25,13 +25,13 @@ block content
       .crosscontainer
         span.close(onclick="document.getElementById('loginForm').style.display='none'", title="Close Modal") &times;
       .container
-        label(for="uname")
+        label(for="email")
           b Username
-        input(type='text', placeholder="Enter Username", name="uname", id="usernameL" ,required)
+        input(type='text', placeholder="Enter Email", name="email", id="emailL" ,required)
         label(for="psw")
           b Password
         input(type='password', placeholder="Enter Password", name='psw', id="passwordL" required)
-        button.w3-theme-d5(id="loginButton") Login
+        button.w3-theme-d5(id="LoginButton") Login
   
   //- Register TAB Form
   .modal(id="registerForm")
@@ -41,15 +41,20 @@ block content
       .container
         label(for="uname")
           b Username
-        input(type='text', placeholder="Enter Username", name="uname", id="usernameR" ,required)
+        input(type='text', placeholder="Enter Email", name="email", id="emailR" ,required)
         label(for="psw")
           b Password
         input(type='password', placeholder="Enter Password", name='psw', id="passwordR" required)
         labl(for="name")  
           b Name
-        input(type='text', placeholder="Enter Username", name="name", id="name" ,required)
-        label(for="tipo")
+        input(type='text', placeholder="Enter Username", name="name", id="nameR" ,required)
+        label
           b User Type
-        input.w3-radio.w3-light-grey(type='radio', name='tipo', value='consumidor')
-        input.w3-radio.w3-light-grey(type='radio', name='tipo', value='produtor') 
+        br
+        label(for="type") Admin
+        input.w3-radio.w3-light-grey(type='radio', name='type', value='0')
+        label(for="type") Producer
+        input.w3-radio.w3-light-grey(type='radio', name='type', value='1')
+        label(for="type") Consumer
+        input.w3-radio.w3-light-grey(type='radio', name='type', value='2') 
         button.w3-theme-d5(id="RegisterButton") Register
