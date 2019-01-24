@@ -1,0 +1,16 @@
+FK=1
+BK=2
+FP=3
+BP=4
+VIRG=5
+DPTS=6
+PROPERTY=7
+STRING=8
+NUMBER=9
+WS=10
+'{'=1
+'}'=2
+'['=3
+']'=4
+','=5
+':'=6
