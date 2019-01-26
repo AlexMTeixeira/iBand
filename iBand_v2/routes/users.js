@@ -7,4 +7,9 @@ router.get('/', passport.authenticate('jwt', {session: false}) , (req, res, next
   res.render('index');
 });
 
+router.get('/logout', passport.authenticate('jwt', {session: false}), (req,res,next) => {
+  req.session.destroy(err => {
+    res.redirect('/');
+  })
+})
 module.exports = router;

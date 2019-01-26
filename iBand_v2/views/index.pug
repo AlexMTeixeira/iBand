@@ -20,41 +20,39 @@ block content
 
 
   //- Login TAB Form
-  .modal(id="loginForm")
-    form.modal-content.animate
-      .crosscontainer
-        span.close(onclick="document.getElementById('loginForm').style.display='none'", title="Close Modal") &times;
-      .container
+  .w3-modal(id="loginForm")
+    form.w3-modal-content.w3-card-4.w3-animate-zoom
+      span.w3-display-topright.w3-button(onclick="document.getElementById('loginForm').style.display='none'") &times;
+      .w3-container.w3-padding-16
         label(for="email")
-          b Username
-        input(type='text', placeholder="Enter Email", name="email", id="emailL" ,required)
+          b Email
+        input(type='text', placeholder="Enter Email", name="email", id="emailL", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
         label(for="psw")
           b Password
-        input(type='password', placeholder="Enter Password", name='psw', id="passwordL" required)
-        button.w3-theme-d5(id="LoginButton") Login
+        input(type='password', placeholder="Enter Password", name='psw', id="passwordL", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+        button.w3-button.w3-theme-d5(id="LoginButton") Login
   
   //- Register TAB Form
-  .modal(id="registerForm")
-    form.modal-content.animate
-      .crosscontainer
-        span.close(onclick="document.getElementById('registerForm').style.display='none'", title="Close Modal") &times;
-      .container
-        label(for="uname")
-          b Username
-        input(type='text', placeholder="Enter Email", name="email", id="emailR" ,required)
-        label(for="psw")
-          b Password
-        input(type='password', placeholder="Enter Password", name='psw', id="passwordR", required)
-        labl(for="name")  
-          b Name
-        input(type='text', placeholder="First and Last Name", name="name", id="nameR" ,required)
+  .w3-modal(id="registerForm")
+    form.w3-modal-content.w3-card-4.w3-animate-zoom
+      span.w3-display-topright.w3-button(onclick="document.getElementById('registerForm').style.display='none'") &times;
+      .w3-container.w3-padding-16
         label
-          b User Type
+          b Email
+        input(type='text', placeholder="Enter Email", id="emailR" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+        label
+          b Password
+        input(type='password', placeholder="Enter Password", id="passwordR", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+        label
+          b Name
+        input(type='text', placeholder="First and Last Name", id="nameR" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+        label
+            b User Type
+        .w3-container
+          input.w3-radio(type='radio', name='user_type', id='producer', value="1")
+          lable Producer
+          br
+          input.w3-radio(type='radio', name='user_type', id='consumer', value="2", checked)
+          lable Client
         br
-        label(for="type") Admin
-        input.w3-radio.w3-light-grey(type='radio', name='type', value='0')
-        label(for="type") Producer
-        input.w3-radio.w3-light-grey(type='radio', name='type', value='1')
-        label(for="type") Consumer
-        input.w3-radio.w3-light-grey(type='radio', name='type', value='2', checked) 
-        button.w3-theme-d5(id="RegisterButton") Register
+        button.w3-button.w3-theme-d5(id="RegisterButton") Register

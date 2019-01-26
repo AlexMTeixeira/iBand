@@ -10,7 +10,6 @@ passport.use('registo', new localStrategy ({
     passReqToCallback : true
 }, async (req, email, password, done) => {
     try {
-        console.log('cenas')
         if (typeof email === "undefined" && !email)
             throw new Error ("Email não definido")
         if (typeof password === "undefined" && !password)
@@ -31,7 +30,6 @@ passport.use('registo', new localStrategy ({
         return done(null, user)
     }
     catch(erro) {
-        console.log(erro)
         return done(erro,false, {message: erro})
     }
 }))
@@ -49,10 +47,13 @@ passport.use('login', new localStrategy ({
     
         user = await UserController.validatePassword(email, password)
 
+        if(user.valid == false) {
+            throw new Error ("Não validado pelo Moderador")
+        }
+
         return done(null, user, {message: "Utilizador Autenticado!"})
     }
     catch(erro) {
-        console.log(erro)
         return done(erro,false, {message: erro})
     }
 }))
@@ -73,6 +74,21 @@ passport.use('jwt', new JWTstrategy({
 }, async (token,done) => {
     try{
         return done(null, token.user)
+    } catch (erro) {
+        return done(erro)
+    }
+}))
+
+passport.use('jwtAdmin', new JWTstrategy({
+    secretOrKey: "pri2018_iBand",
+    jwtFromRequest: ExtractJWT.fromExtractors([extractFromSession])
+}, async (token,done) => {
+    try{
+        console.log(token.user)
+        if(token.user.utype == 0)
+            return done(null, token.user)
+        else
+            return done(null, false, {message: "Access restricted!"})
     } catch (erro) {
         return done(erro)
     }

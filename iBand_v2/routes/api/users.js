@@ -22,7 +22,7 @@ router.get('/:uid', passport.authenticate('jwt', {session: false}), (req,res) =>
 
 router.post('/', passport.authenticate('registo', {
     session: false,
-    successRedirect: '/users/',
+    successRedirect: '/',
     failureRedirect: '/'
 }))
 
@@ -35,15 +35,16 @@ router.post('/login', async (req,res,next) => {
             }
             req.login(user, {session: false}, async (error) => {
                 if(error) return next(error)
-                const myuser = {_id: user._id, email: user.email}
+                const myuser = {_id: user._id, email: user.email, utype: user.utype}
                 const token = jwt.sign({user: myuser}, 'pri2018_iBand')
-                console.log(myuser)
-                req,user.token = token
+                req.user.token = token
                 req.session.token = token
-                res.redirect('/users/')
+                if(req.user.utype == 0) 
+                    res.send('/admin/')
+                else
+                    res.send('/users/')
             })
         } catch (error) {
-            console.log(error)
             return next(error)
         }
     }) (req,res,next)
