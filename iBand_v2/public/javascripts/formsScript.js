@@ -1,7 +1,10 @@
 
 var regexEmail = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+var myIndex = 0;
 
 $(()=>{
+    //Slide Show
+    carousel();
 
     // Get the modal
     var loginModal = document.getElementById('loginForm');
@@ -69,3 +72,16 @@ $(()=>{
     })
 
 })
+
+//Slide Show Carousel
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 5000); // Change image every 5 seconds
+}  

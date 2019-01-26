@@ -118,7 +118,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
 .w3-animate-top{position:relative;animation:animatetop 0.4s}@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}
 .w3-animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
-.w3-animate-right{position:relative;animation:animateright 0.4s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+.w3-animate-right{position:relative;animation:animateright 1s}@keyframes animateright{from{right:-100px;opacity:0} to{right:0;opacity:1}}
 .w3-animate-bottom{position:relative;animation:animatebottom 0.4s}@keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
 .w3-animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
 .w3-animate-input{transition:width 0.4s ease-in-out}.w3-animate-input:focus{width:100%!important}
@@ -254,3 +254,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-hover-theme:hover {color:#000 !important; background-color:#eeeeef !important}
 .w3-hover-text-theme:hover {color:#eeeeef !important}
 .w3-hover-border-theme:hover {border-color:#eeeeef !important}
+
+
+.mySlides {display:none;}
