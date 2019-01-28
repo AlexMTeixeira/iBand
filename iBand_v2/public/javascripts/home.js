@@ -7,16 +7,16 @@ $(()=>{
     carousel();
 
     // Get the modal
-    var loginModal = document.getElementById('loginForm');
-    var registerModal = document.getElementById('registerForm');
+    var loginModal = $('#loginForm');
+    var registerModal = $('#registerForm');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == loginModal) {
-            loginModal.style.display = "none";
+            loginModal.hide();
         }
         if (event.target == registerModal) {
-            registerModal.style.display = "none";
+            registerModal.hide();
         }
     }
 
@@ -27,12 +27,13 @@ $(()=>{
         if(!regexEmail.test($('#emailL').val())) {
             $('#passwordL').val('')
             $('#emailL').val('')
+            $('#emailL').attr('style', "border-radius: 5px; border:#FF0000 1px solid;");
             $('#emailL').attr("placeholder", "Please insert a email");
         } else {
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
-                url: 'http://localhost:8000/api/users/login',
+                url: 'http://localhost:8000/api/login/',
                 data: JSON.stringify({email: $('#emailL').val(), password: $('#passwordL').val()}),
                 success: p => {
                     window.location.href = p;
@@ -45,7 +46,6 @@ $(()=>{
         }
     })
 
-
     //Post Register
     $('#RegisterButton').click(e=>{
         e.preventDefault()
@@ -57,7 +57,7 @@ $(()=>{
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
-                url: 'http://localhost:8000/api/users/',
+                url: 'http://localhost:8000/api/register/',
                 data: JSON.stringify({email: $('#emailR').val(), password: $('#passwordR').val(), name: $('#nameR').val(), utype: parseInt($('input[name=user_type]:checked').val())}),
                 success: p => {
                     alert('You need to wait for Moderator to validate your account! Thanks for your registation!')
@@ -75,13 +75,14 @@ $(()=>{
 
 //Slide Show Carousel
 function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";  
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}    
-    x[myIndex-1].style.display = "block";  
-    setTimeout(carousel, 5000); // Change image every 5 seconds
+    myIndex++
+    var slides = $(".mySlides")
+
+    slides.each( (i) => {
+        slides.eq(i).hide("slow")
+    })
+
+    if (myIndex > slides.length) {myIndex = 1}
+    slides.eq(myIndex - 1).show("slow")
+    setTimeout(carousel, 5000) // Change image every 5 seconds
 }  

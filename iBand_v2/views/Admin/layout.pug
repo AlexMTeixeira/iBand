@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+  body
+    //- Navbar (On top)
+    .w3-container.w3-theme-d5.w3-bar.w3-card-4
+        b.w3-bar-item.w3-mobile iBand
+        .w3-right.w3-mobile
+            a.w3-bar-item.w3-button(id='getUsers', href="http://localhost:8000/admin/users") Users
+            a.w3-bar-item.w3-button(id='getEvents', href="http://localhost:8000/admin/events") Events
+            a.w3-bar-item.w3-button(id='getWorks', href="http://localhost:8000/admin/works") Musical Works
+            a.w3-bar-item.w3-button(id='getNews', href="http://localhost:8000/admin/articles") News
+            a(href='/logout').w3-bar-item.w3-button Logout
+
+    block content
+
+    script(src='/javascripts/jquery.js')

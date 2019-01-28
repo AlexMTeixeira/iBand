@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .w3-container.w3-theme-l1
+    h1.w3-border-bottom.w3-theme Edit Article
+        form.w3-card-4
+            span.w3-display-topright.w3-button
+            .w3-container.w3-padding-16
+                label(for="title")
+                    b Title
+                input(type='text', value=article.title, name="title", id="title_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+                label(for="name")
+                    b SubTitle
+                input(type='text', value=article.subtitle, name="subtitle", id="subtitle_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+                label(for="psw")
+                    b Content
+                textarea(cols="30", rows="10" type='content', name='psw',id="content_input", style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")= u.content
+                    b Author
+                input(type='text', value=article.author, name="author", id="author_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+                    b Date
+                input(type='text', value=article.date, name="date", id="date_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+
+
+                button.w3-button.w3-theme-d5(id="save-button") Save
+
+    script(src='/javascripts/Admin/users.js')

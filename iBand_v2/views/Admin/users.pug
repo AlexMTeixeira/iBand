@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  .w3-container.w3-theme-l1
+    h1.w3-border-bottom.w3-theme= 'Users List     '
+        a(href="http://localhost:8000/admin/users/new") (new)
+        table.w3-table-all
+            tr
+            th ID
+            th Name
+            th Email
+            th User Type
+            th Status
+            th Edit
+
+            each u in users
+                tr
+                    td=u._id
+                    td 
+                        a(href='http://localhost:8000/admin/users/' + u._id)= u.name
+
+                    td= u.email
+
+                    case u.utype
+                        when 0
+                            td Admin
+                        when 1
+                            td Producer
+                        default
+                            td Client
+
+                    if u.valid 
+                        td ACtive
+                    else 
+                        td 
+                            a(href='http://localhost:8000/admin/users/activate/' + u._id) Activate
+                    td 
+                        a(href='http://localhost:8000/admin/users/' + u._id) Edit
+                    
+                    td 
+                        a(href='http://localhost:8000/admin/users/remove/' + u._id) Remove
+
+    script(src='/javascripts/Admin/users.js')

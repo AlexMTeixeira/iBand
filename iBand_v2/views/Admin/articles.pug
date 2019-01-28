@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  .w3-container.w3-theme-l1
+    h1.w3-border-bottom.w3-theme= 'Articles List     '
+        a(href="http://localhost:8000/admin/articles/new") (new)
+        table.w3-table-all
+            tr
+            th ID
+            th Title
+            th Subtitle
+            th Author
+            th Date
+            th Edit
+            th Remove
+
+            each a in articles
+                tr
+                    td=a._id
+                    td 
+                        a(href='http://localhost:8000/admin/articles/' + a._id)= a.title
+
+                    if a.subtitle
+                        td= a.subtitle
+                    else 
+                        td --- --- ---
+                    
+                    td= a.author
+
+                    td= a.date
+
+                    td 
+                        a(href='http://localhost:8000/admin/articles/' + a._id) Edit
+                    
+                    td 
+                        a(href='http://localhost:8000/admin/articles/remove/' + a._id) Remove
+
+    script(src='/javascripts/Admin/articles.js')

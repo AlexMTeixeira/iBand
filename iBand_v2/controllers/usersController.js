@@ -1,7 +1,7 @@
 var User = require('../models/userModel')
 
-module.exports.list = () => {
-    return User
+module.exports.list = async () => {
+    return await User
             .find()
             .exec()
 }
@@ -10,13 +10,13 @@ module.exports.insert = user => {
     return User.create(user)
 } 
 
-module.exports.getUbyEmail = email => {
+module.exports.getByEmail = email => {
     return User
         .findOne({email: email})
         .exec()
 }
 
-module.exports.getUbyId = id => {
+module.exports.getById = id => {
     return User
         .findOne({_id: id})
         .exec()

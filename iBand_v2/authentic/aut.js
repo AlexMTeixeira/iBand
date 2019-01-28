@@ -1,4 +1,3 @@
-
 var passport = require('passport')
 var localStrategy = require('passport-local').Strategy
 var UserController = require('../controllers/usersController')
@@ -84,7 +83,6 @@ passport.use('jwtAdmin', new JWTstrategy({
     jwtFromRequest: ExtractJWT.fromExtractors([extractFromSession])
 }, async (token,done) => {
     try{
-        console.log(token.user)
         if(token.user.utype == 0)
             return done(null, token.user)
         else
