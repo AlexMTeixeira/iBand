@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  .w3-container.w3-theme-l1
+    h1.w3-border-bottom.w3-theme= 'Events List     '
+        a(href="http://localhost:8000/admin/events/new") (new)
+        table.w3-table-all
+            tr
+            th ID
+            th Designation
+            th Place
+            th Type
+            th Info
+            th Date
+
+            each a in events
+                tr
+                    td=e._id
+                    td 
+                        a(href='http://localhost:8000/admin/events/' + e._id)= e.title
+
+                    if e.subtitle
+                        td= e.subtitle
+                    else 
+                        td --- --- ---
+                    
+                    td= e.author
+
+                    td= e.date
+
+                    td 
+                        a(href='http://localhost:8000/admin/events/' + e._id) Edit
+                    
+                    td 
+                        a(href='http://localhost:8000/admin/events/remove/' + e._id) Remove
+
+    script(src='/javascripts/Admin/events.js')
