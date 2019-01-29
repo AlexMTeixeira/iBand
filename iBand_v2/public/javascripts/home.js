@@ -75,14 +75,13 @@ $(()=>{
 
 //Slide Show Carousel
 function carousel() {
-    myIndex++
-    var slides = $(".mySlides")
-
-    slides.each( (i) => {
-        slides.eq(i).hide("slow")
-    })
-
-    if (myIndex > slides.length) {myIndex = 1}
-    slides.eq(myIndex - 1).show("slow")
-    setTimeout(carousel, 5000) // Change image every 5 seconds
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}    
+    x[myIndex-1].style.display = "block";  
+    setTimeout(carousel, 5000); // C
 }  

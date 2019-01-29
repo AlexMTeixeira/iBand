@@ -9,17 +9,18 @@ block content
                 label(for="title")
                     b Title
                 input(type='text', value=article.title, name="title", id="title_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                label(for="name")
+                label(for="subtitle")
                     b SubTitle
                 input(type='text', value=article.subtitle, name="subtitle", id="subtitle_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                label(for="psw")
+                label(for="content")
                     b Content
-                textarea(cols="30", rows="10" type='content', name='psw',id="content_input", style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")= u.content
+                textarea(cols="30", rows="10" type='content', name='content',id="content_input", style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")= u.content
+                label(for="author")
                     b Author
                 input(type='text', value=article.author, name="author", id="author_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+                label(for="date")
                     b Date
                 input(type='text', value=article.date, name="date", id="date_input", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-
 
                 button.w3-button.w3-theme-d5(id="save-button") Save
 

@@ -23,7 +23,7 @@ module.exports.getById = id => {
 }
 
 module.exports.validatePassword = async (email, password) => {
-    user = await this.getUbyEmail(email)
+    user = await this.getByEmail(email)
     if(!user) 
         throw new Error("Utilizador não encontrado!")
 
