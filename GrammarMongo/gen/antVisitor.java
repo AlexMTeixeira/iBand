@@ -1,4 +1,4 @@
-// Generated from /home/master/IdeaProjects/GrammarMongo/src/test/antlr/ant.g4 by ANTLR 4.7
+// Generated from /home/master/IdeaProjects/GrammarMongo/src/main/antlr/ant.g4 by ANTLR 4.7
 
     import com.mongodb.*;
 
@@ -31,6 +31,12 @@ public interface antVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPair(antParser.PairContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link antParser#property}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProperty(antParser.PropertyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link antParser#member}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -48,4 +54,22 @@ public interface antVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArrayUnit(antParser.ArrayUnitContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link antParser#coords}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCoords(antParser.CoordsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link antParser#coord}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCoord(antParser.CoordContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link antParser#date}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDate(antParser.DateContext ctx);
 }

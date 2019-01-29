@@ -1,6 +1,0 @@
-{
-    autor: "Paulo" ,
-    data: 23 ,
-    titulo: "e tudo o vento",
-    pchave: ["a", "b","ahhh bom" ]
-},

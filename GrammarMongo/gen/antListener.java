@@ -1,4 +1,4 @@
-// Generated from /home/master/IdeaProjects/GrammarMongo/src/test/antlr/ant.g4 by ANTLR 4.7
+// Generated from /home/master/IdeaProjects/GrammarMongo/src/main/antlr/ant.g4 by ANTLR 4.7
 
     import com.mongodb.*;
 
@@ -40,6 +40,16 @@ public interface antListener extends ParseTreeListener {
 	 */
 	void exitPair(antParser.PairContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link antParser#property}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty(antParser.PropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link antParser#property}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty(antParser.PropertyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link antParser#member}.
 	 * @param ctx the parse tree
 	 */
@@ -69,4 +79,34 @@ public interface antListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArrayUnit(antParser.ArrayUnitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link antParser#coords}.
+	 * @param ctx the parse tree
+	 */
+	void enterCoords(antParser.CoordsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link antParser#coords}.
+	 * @param ctx the parse tree
+	 */
+	void exitCoords(antParser.CoordsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link antParser#coord}.
+	 * @param ctx the parse tree
+	 */
+	void enterCoord(antParser.CoordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link antParser#coord}.
+	 * @param ctx the parse tree
+	 */
+	void exitCoord(antParser.CoordContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link antParser#date}.
+	 * @param ctx the parse tree
+	 */
+	void enterDate(antParser.DateContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link antParser#date}.
+	 * @param ctx the parse tree
+	 */
+	void exitDate(antParser.DateContext ctx);
 }

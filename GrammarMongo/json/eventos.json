@@ -1,0 +1,8 @@
+{
+ local:"Palace",
+ tema: "potedo",
+ descricao:"Breve convivio entre colegas.",
+ horario: "4-6 da manha",
+ interesse: [],
+ coordenadas:{latitude:"13.353", longitude:"188.3102"}
+}
