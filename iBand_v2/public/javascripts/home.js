@@ -6,20 +6,15 @@ $(()=>{
     //Slide Show
     carousel();
 
-    // Get the modal
-    var loginModal = $('#loginForm');
-    var registerModal = $('#registerForm');
-
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == loginModal) {
-            loginModal.hide();
-        }
-        if (event.target == registerModal) {
-            registerModal.hide();
-        }
-    }
-
+    $('.w3-modal ').click(function(){
+        $('.w3-modal, .w3-modal-content').hide();
+       
+   })                                            
+   $('.w3-modal-content').click(function(e){
+      e.stopPropagation();
+   })                                            
+   
     //Post Login 
     $('#LoginButton').click(e=>{
         e.preventDefault()
@@ -40,7 +35,6 @@ $(()=>{
                 },
                 error: e => {
                     alert('Login Failed!')
-                    
                 }
             })
         }
