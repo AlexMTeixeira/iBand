@@ -5,16 +5,31 @@ var myIndex = 0;
 $(()=>{
     //Slide Show
     carousel();
-
+    
     // When the user clicks anywhere outside of the modal, close it
-    $('.w3-modal ').click(function(){
-        $('.w3-modal, .w3-modal-content').hide();
-       
-   })                                            
-   $('.w3-modal-content').click(function(e){
-      e.stopPropagation();
-   })                                            
-   
+    $('.w3-modal').click(() => {
+        $('.w3-modal').hide();
+    })                                            
+    $('.w3-modal-content').click( (e) => {
+        e.stopPropagation();
+    })
+    
+    $('#login_modal_button').click( () => {
+        $('#loginForm').show()
+    })
+    
+    $('#register_modal_button').click( () => {
+        $('#registerForm').show()
+    })
+    
+    $('#close_login_modal_button').click( () => {
+        $('#loginForm').hide()
+    })
+    
+    $('#close_register_modal_button').click( () => {
+        $('#registerForm').hide()
+    })
+    
     //Post Login 
     $('#LoginButton').click(e=>{
         e.preventDefault()
@@ -39,11 +54,11 @@ $(()=>{
             })
         }
     })
-
+    
     //Post Register
     $('#RegisterButton').click(e=>{
         e.preventDefault()
-
+        
         if(!regexEmail.test($('#emailR').val())) {
             $('#emailR').val('')
             $('#emailR').attr("placeholder", "Please insert a email");
@@ -64,7 +79,7 @@ $(()=>{
             })
         }
     })
-
+    
 })
 
 //Slide Show Carousel

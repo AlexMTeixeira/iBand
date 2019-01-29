@@ -21,7 +21,6 @@ router.get('/users/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/users/' + req.params.uid)
         .then( user => {
-            console.log(user.data)
             res.render('Admin/user', {user: user.data}
             ) 
         })
@@ -37,7 +36,6 @@ router.get('/articles',
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/articles/')
         .then( articles => {
-            console.log(articles.data)
             res.render('Admin/articles', {articles: articles.data}
             ) 
         })
@@ -51,7 +49,34 @@ router.get('/articles/:aid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/articles/' + req.params.aid)
         .then( article => {
-            console.log(article.data)
+            res.render('Admin/article', {article: article.data}
+            ) 
+        })
+        .catch( erro => {
+            console.log('Erro na consulta de artigo: ' + erro)
+            res.render('error', {error: erro, message: 'My bad...'})
+        })
+})
+
+
+// Events Routes
+router.get('/events', 
+    passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/events/')
+        .then( events => {
+            res.render('Admin/events', {events: events.data}
+            ) 
+        })
+        .catch( erro => {
+            console.log('Erro na consulta de eventos: ' + erro)
+            res.render('error', {error: erro, message: 'My bad...'})
+        })
+})
+
+router.get('/events/:eid', 
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/events/' + req.params.eid)
+        .then( article => {
             res.render('Admin/article', {article: article.data}
             ) 
         })
@@ -66,9 +91,6 @@ router.get('/articles/:aid',
 router.get('/', passport.authenticate('jwtAdmin', {session: false}) , (req, res, next) => {
   res.render('Admin/index')
 });
-
-
-
 
 
 module.exports = router;

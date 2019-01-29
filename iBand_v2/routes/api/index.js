@@ -4,10 +4,11 @@ var jwt = require('jsonwebtoken')
 var passport = require('passport')
 var UserController = require('../../controllers/usersController')
 var ArticleController = require('../../controllers/articleController')
+var EventController = require('../../controllers/eventController')
 
 // General Routes
-router.post('/login', async (req,res,next) => {
-    passport.authenticate('login', async (err,user,info)=> {
+router.post('/login/', async (req,res,next) => {
+    passport.authenticate('login', async (error,user,info)=> {
         try {
             if(err || !user){
                 const error = new Error('An Error Occured')
@@ -37,37 +38,61 @@ router.post('/register', passport.authenticate('registo', {
 }))
 
 
-
-
 // User's Routes
-router.get('/users', (req,res) => {
+router.get('/users',  async (req,res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
         UserController.list()
             .then(users => {
                 res.jsonp(users)
             })
-            .catch(erro => res.status(500).send('Error on getting Users'))
+            .catch(error => res.status(500).send('Error on getting Users'))
+    }) (req, res, next)
 })
 
-router.get('/users/:uid', (req,res) => {
-    UserController.getById(req.params.uid)
-            .then(dados => res.jsonp(dados))
-            .catch(erro => res.status(500).send('Erro na consulta de utilizador!'))
+router.get('/users/:uid', (req, res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
+        UserController.getById(req.params.uid)
+                .then(dados => res.jsonp(dados))
+                .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
 })
 
 // Articles Routes
-router.get('/articles', (req,res) => {
-    console.log('in api router')
-    ArticleController.list()
-        .then( articles => {
-            res.jsonp(articles) 
-        })
-        .catch(erro => res.status(500).send('Error on getting Users'))
+router.get('/articles', (req, res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
+        ArticleController.list()
+            .then( articles => {
+                res.jsonp(articles) 
+            })
+            .catch(error => res.status(500).send('Error on getting Users'))
+    }) (req, res, next)
 })
 
-router.get('/articles/:aid', (req,res) => {
-    ArticleController.getById(req.params.aid)
-        .then( article => res.jsonp(article))
-        .catch(erro => res.status(500).send('Erro na consulta de utilizador!'))
+router.get('/articles/:aid', (req, res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
+        ArticleController.getById(req.params.aid)
+            .then( article => res.jsonp(article))
+            .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
+// Events Routes
+router.get('/events', (req, res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
+        EventController.list()
+            .then( events => {
+                res.jsonp(events) 
+            })
+            .catch(error => res.status(500).send('Error on getting Users'))
+    }) (req, res, next)
+})
+
+router.get('/events/:aid', (req, res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
+        EventController.getById(req.params.aid)
+            .then( event => res.jsonp(event) )
+            .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
 })
 
 
