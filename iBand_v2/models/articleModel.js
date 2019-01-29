@@ -2,11 +2,10 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var articleSchema =  new Schema({
-    title : {type: String, required: true, unique: true},
-    subtitle : {type: String, required: true},
+    date : {type: Date, required: true},
+    title : {type: String, required: true},
     content : {type: String, required: true},
-    author : {type: String},
-    date : {type: String}
+    author : {type: String, required: true}
 })
 
 module.exports = mongoose.model('Article', articleSchema, 'article')
