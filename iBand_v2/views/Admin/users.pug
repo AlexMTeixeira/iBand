@@ -3,30 +3,74 @@ extends layout
 block content
     .w3-container.w3-theme-l1
         h1.w3-theme Users List
-        a(href="http://localhost:8000/admin/users/new") (new)
-
+        a.w3-button.w3-theme-d3.w3-card(id="create_user_modal" style="width:auto;") Create User
+        br
+        br
         ul.w3-ul.w3-card-4
             each u in users
                 li.w3-bar
                     .w3.bar-item.w3-theme.w3-large.w3-right
+                        if u.valid
+                            a.w3-button(href='http://localhost:8000/admin/users/deactivate/' + u._id) &#10060;
+                        else
+                            a.w3-button(href='http://localhost:8000/admin/users/activate/' + u._id)  &#9989;
                         a.w3-button(href='http://localhost:8000/admin/users/'+u._id) &#9881;
                         a.w3-button(href='http://localhost:8000/admin/users/remove/' + u._id) &#9760;
-                    b.w3-bar-item.w3-hide-small= u.name
                     
-                    case u.utype
-                        when 0
-                            b.w3-bar-item.w3-hide-small Admin
-                        when 1
-                            b.w3-bar-item.w3-hide-small Producer
-                        default
-                            b.w3-bar-item.w3-hide-small Client
+                    b.w3-bar-item.w3-hide-small(style="width:10%")= u.name
+                    
+                    .w3-bar-item(style="width:40%")
+                        a.w3-large(href="mailto:"+u.email)= u.email 
+                        br
+                        span= u._id
+                    
                     .w3-bar-item
-                        span.w3-large= u.email
-                        if u.valid
-                            span Active
-                        else
-                            a(href='http://localhost:8000/admin/users/activate/' + u._id) Activate
-                        
+                        case u.utype
+                                when 0
+                                    span Admin
+                                when 1
+                                    span Producer
+                                default
+                                    span Client
+
+    //- Register TAB Form
+    .w3-modal(id="newUserForm")
+      form.w3-modal-content.w3-card-4.w3-animate-zoom
+        span.w3-display-topright.w3-button(onclick="document.getElementById('newUserForm').style.display='none'") &times;
+        .w3-container.w3-padding-16
+            label
+                b Email
+            input(type='text', placeholder="Enter Email", id="email" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Password
+            input(type='password', placeholder="Enter Password", id="password", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Name
+            input(type='text', placeholder="First and Last Name", id="name" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            .w3-cell-row    
+                .w3-container.w3-cell
+                    label
+                        b User Type
+                    br
+                    input.w3-radio(type='radio', name='user_type', id='admin', value="0")
+                    lable Admin
+                    br
+                    input.w3-radio(type='radio', name='user_type', id='producer', value="1")
+                    lable Producer
+                    br
+                    input.w3-radio(type='radio', name='user_type', id='consumer', value="2", checked)
+                    lable Client
+                .w3-container.w3-cell
+                    label
+                        b Validation
+                    br
+                    input.w3-radio(type='radio', name='valid', id='active', value=true, checked)
+                    lable Active
+                    br
+                    input.w3-radio(type='radio', name='user_type', id='not_active', value=false)
+                    lable Not Active
+            br
+            button.w3-button.w3-theme-d5(id="newUserButton") Add User                   
 
 
     script(src='/javascripts/Admin/users.js')
