@@ -33,6 +33,22 @@ module.exports.delete = async id => {
         .exec()
 }
 
+module.exports.updateUser = async (email,pass,name,utype,valid) => {
+    user = await this.getByEmail(email)
+
+    if(!user)
+        throw new Error("Utilizador não encontrado!")
+    
+    if(!pass)
+        pass = user.password
+    
+    if(!name)
+        name = user.name
+    
+    await User.update({email: email},{$set: {password: pass, name: name, utype: utype, valid: valid}})
+            .exec()
+}
+
 module.exports.validatePassword = async (email, password) => {
     user = await this.getByEmail(email)
     if(!user) 

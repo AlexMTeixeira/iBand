@@ -56,6 +56,19 @@ module.exports.insert = article => {
     return Article.create(article)
 }
 
+module.exports.updateArticle = async (_id,title,author,date,content) => {
+    article = await this.getById(_id)
+
+    if(!article)
+        throw new Error("Artigo não encontrado!")
+    
+    if(!date)
+        date = article.date
+    
+    await Article.update({_id: _id},{$set: {title: title, author: author, date: date, content: content}})
+            .exec()
+}
+
 module.exports.delete = id => {
     return Article
     .deleteOne({ id })

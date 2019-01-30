@@ -81,6 +81,19 @@ router.get('/users/remove/:uid', (req,res,next)=>{
     }) (req, res, next)
 })
 
+router.post('/users/update', (req,res,next)=>{
+    passport.authenticate('jwtAdmin', async (error, user, info) => {
+        var email = req.body.email
+        var pass = req.body.password
+        var name = req.body.name
+        var utype = req.body.utype
+        var valid = req.body.valid
+        UserController.updateUser(email,pass,name,utype,valid)
+                .then(() => res.status(200).send('User Updated'))
+                .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
 // Articles Routes
 router.get('/articles', (req, res, next) => {
     passport.authenticate('jwt', async (error, user, info) => {
@@ -97,6 +110,31 @@ router.get('/articles/:aid', (req, res, next) => {
         ArticleController.getById(req.params.aid)
             .then( article => res.jsonp(article))
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
+router.post('/articles', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        var title = req.body.title
+        var author = req.body.author
+        var date = req.body.date
+        var content = req.body.content
+        ArticleController.insert({title,author,date,content})
+                .then(() => res.status(200).send('Article Created'))
+                .catch(error => res.status(500).send('Erro na criação de artigo!'))
+    }) (req, res, next)
+})
+
+router.post('/articles/update', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        var _id = req.body._id
+        var title = req.body.title
+        var author = req.body.author
+        var date = req.body.date
+        var content = req.body.content
+        ArticleController.updateArticle(_id,title,author,date,content)
+                .then(() => res.status(200).send('Article Updated'))
+                .catch(error => res.status(500).send('Erro no update de artigo!'))
     }) (req, res, next)
 })
 

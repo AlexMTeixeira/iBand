@@ -4,6 +4,10 @@ $(()=>{
     
     $('#create_user_modal').click(()=>{
         $('#newUserForm').show()
+        $('#updateUserButton').hide()
+        $('#newUserButton').show()
+        $('#email').val('')
+        $('#email').removeAttr('readonly')
     })
 
     // When the user clicks anywhere outside of the modal, close it
@@ -19,12 +23,42 @@ $(()=>{
         $('#newUserForm').hide()
    })
 
-   $('.edit').on('click', ()=>{
-        var email = $(this).val()
-          alert(JSON.stringify(email))
-        $('#newUserForm').show()
-        $('#email').val(email)
+   $('.edit').click(function(){
+          var email = this.id
+          $('#newUserForm').show()
+          $('#email').val(email)
+          $('#email').attr("readonly","readonly")
+          $('#newUserButton').hide()
+          $('#updateUserButton').show()
+
    })
+
+   $('#updateUserButton').click(e=>{
+          e.preventDefault()
+        
+          if(!regexEmail.test($('#email').val())) {
+               $('#email').val('')
+               $('#email').attr("placeholder", "Please insert a email");
+          } else {
+               var valid
+               if($('input[name=valid]:checked').val()=="true")
+                    valid = true
+               else valid = false
+               $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json',
+                    url: 'http://localhost:8000/api/users/update/',
+                    data: JSON.stringify({email: $('#email').val(), password: $('#password').val(), name: $('#name').val(), utype: parseInt($('input[name=user_type]:checked').val()), valid: valid}),
+                    success: p => {
+                         $('#newUserForm').hide();
+                         location.reload();
+                    },
+                    error: e => {
+                         alert('Fail on Update')  
+                    }
+               })
+          }
+     })
 
    $('#newUserButton').click(e=>{
           e.preventDefault()

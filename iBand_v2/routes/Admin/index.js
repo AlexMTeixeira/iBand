@@ -55,12 +55,32 @@ router.get('/users/remove/:uid',
         axios.get('http://localhost:8000/api/users/remove/' + req.params.uid)
             .then( () => res.redirect('/admin/users'))
         .catch( erro => {
-            console.log('Erro na consulta de utilizadore: ' + erro)
-            res.render('error', {error: erro, message: 'My bad...'})
+            console.log('Erro na remoção de utilizador: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na remoção de utilizador'})
         })
 })
 
+router.post('/users/update',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.post('http://localhost:8000/api/users/update/', req.body)
+            .then( () => res.redirect('/admin/users'))
+        .catch( erro => {
+            console.log('Erro no update de utilizador: ' + erro)
+            res.render('error', {error: erro, message: 'Erro no update de utilizador'})
+    })
+})
+
 // Article Routes
+router.post('/articles',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.post('http://localhost:8000/api/articles/', req.body)
+            .then( () => res.redirect('/admin/articles'))
+        .catch( erro => {
+            console.log('Erro na inserção de artigo: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na inserção de artigo'})
+    })
+})
+
 router.get('/articles', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/articles/')
@@ -87,6 +107,15 @@ router.get('/articles/:aid',
         })
 })
 
+router.post('/articles/update',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.post('http://localhost:8000/api/articles/update/', req.body)
+            .then( () => res.redirect('/admin/articles'))
+        .catch( erro => {
+            console.log('Erro no update de artigo: ' + erro)
+            res.render('error', {error: erro, message: 'Erro no update de artigo'})
+    })
+})
 
 // Events Routes
 router.get('/events', 

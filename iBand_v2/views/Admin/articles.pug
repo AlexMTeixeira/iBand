@@ -1,38 +1,57 @@
 extends layout
 
 block content
-  .w3-container.w3-theme-l1
-    h1.w3-border-bottom.w3-theme= 'Articles List     '
-        a(href="http://localhost:8000/admin/articles/new") (new)
-        table.w3-table-all
-            tr
-            th ID
-            th Title
-            th Subtitle
-            th Author
-            th Date
-            th Edit
-            th Remove
-
+    .w3-container.w3-theme-l1
+        h1.w3-theme Articles List
+        a.w3-button.w3-theme-d3.w3-card(id="create_article_modal" style="width:auto;") Create Article
+        br
+        br
+        ul.w3-ul.w3-card-4
             each a in articles
-                tr
-                    td=a._id
-                    td 
-                        a(href='http://localhost:8000/admin/articles/' + a._id)= a.title
-
-                    if a.subtitle
-                        td= a.subtitle
-                    else 
-                        td --- --- ---
+                li.w3-bar
+                    .w3-bar-item.w3-theme.w3-large.w3-right
+                        button.edit.w3-button(id=""+a._id, title=""+a.title, href=""+a.author, value=""+a.content) &#9881;
+                        a.w3-button(href='http://localhost:8000/admin/articles/remove/' + a._id) &#9760;
                     
-                    td= a.author
-
-                    td= a.date
-
-                    td 
-                        a(href='http://localhost:8000/admin/articles/' + a._id) Edit
+                    b.w3-bar-item.w3-hide-small(style="width:10%")= a.author    
                     
-                    td 
-                        a(href='http://localhost:8000/admin/articles/remove/' + a._id) Remove
+                    .w3-bar-item(style="width:80%")
+                        b= a.title
+                        br
+                        p.w3-small= a.date
+                        br
+                        p= a.content
+                        br
+                        p.w3-tiny= "ID: "+a._id
+
+
+    //- Register TAB Form
+    .w3-modal(id="newArticleForm")
+      form.w3-modal-content.w3-card-4.w3-animate-zoom
+        span.w3-display-topright.w3-button(id="close_modal") &times;
+        .w3-container.w3-padding-16
+            label(id="idField")
+                b= "ID: "
+                span(id="_field")
+            br
+            label
+                b Title
+            input(type='text', placeholder="Enter Title", id="title" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Author
+            input(type='text', placeholder="Enter Author", id="author", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Date
+            input(type='date', placeholder="First and Last Name", id="date" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Content
+            input(type='text', placeholder="Text Content", id="content" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            br
+            button.w3-button.w3-theme-d5(id="newArticleButton") Add Article
+            button.w3-button.w3-theme-d5(id="updateArticleButton") Update Article      
+
+
+
+
 
     script(src='/javascripts/Admin/articles.js')

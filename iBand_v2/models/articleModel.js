@@ -8,4 +8,4 @@ var articleSchema =  new Schema({
     author : {type: String, required: true}
 })
 
-module.exports = mongoose.model('Article', articleSchema, 'article')
+module.exports = mongoose.model('Article', articleSchema, 'articles')
