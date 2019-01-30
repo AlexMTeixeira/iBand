@@ -13,7 +13,7 @@ router.get('/users',
         })
         .catch( erro => {
             console.log('Erro na consulta de utilizadores: ' + erro)
-            res.render('error', {error: erro, message: 'My bad...'})
+            res.render('error', {error: erro, message: 'Erro na consulta de utilizadores'})
         })
 })
 
@@ -25,8 +25,8 @@ router.get('/users/:uid',
             ) 
         })
         .catch( erro => {
-            console.log('Erro na consulta de utilizadore: ' + erro)
-            res.render('error', {error: erro, message: 'My bad...'})
+            console.log('Erro na consulta de utilizador: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na consulta de utilizador'})
         })
 })
 
@@ -35,8 +35,8 @@ router.get('/users/activate/:uid',
         axios.get('http://localhost:8000/api/users/activate/' + req.params.uid)
             .then( user => res.redirect('/admin/users'))
         .catch( erro => {
-            console.log('Erro na consulta de utilizadore: ' + erro)
-            res.render('error', {error: erro, message: 'My bad...'})
+            console.log('Erro na ativação de utilizador: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na ativação de utilizador'})
         })
 })
 
@@ -44,6 +44,16 @@ router.get('/users/deactivate/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/users/deactivate/' + req.params.uid)
             .then( user => res.redirect('/admin/users'))
+        .catch( erro => {
+            console.log('Erro na desactivação de utilizador: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na desactivação de utilizador'})
+        })
+})
+
+router.get('/users/remove/:uid',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/users/remove/' + req.params.uid)
+            .then( () => res.redirect('/admin/users'))
         .catch( erro => {
             console.log('Erro na consulta de utilizadore: ' + erro)
             res.render('error', {error: erro, message: 'My bad...'})

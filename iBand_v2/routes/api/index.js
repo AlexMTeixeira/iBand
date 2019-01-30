@@ -68,6 +68,14 @@ router.get('/users/activate/:uid', (req,res,next)=>{
 router.get('/users/deactivate/:uid', (req,res,next)=>{
     passport.authenticate('jwtAdmin', async (error, user, info) => {
         UserController.changeActivation(req.params.uid,false)
+                .then(() => res.jsonp({status: 1}))
+                .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
+router.get('/users/remove/:uid', (req,res,next)=>{
+    passport.authenticate('jwtAdmin', async (error, user, info) => {
+        UserController.delete(req.params.uid)
                 .then(dados => res.jsonp(dados))
                 .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
     }) (req, res, next)

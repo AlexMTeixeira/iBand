@@ -19,6 +19,13 @@ $(()=>{
         $('#newUserForm').hide()
    })
 
+   $('.edit').on('click', ()=>{
+        var email = $(this).find('email')
+          alert(JSON.stringify(email))
+        $('#newUserForm').show()
+        $('#email').val(email)
+   })
+
    $('#newUserButton').click(e=>{
           e.preventDefault()
 
@@ -34,9 +41,10 @@ $(()=>{
                    type: 'POST',
                    contentType: 'application/json',
                    url: 'http://localhost:8000/api/register/',
-                   data: JSON.stringify({email: $('#emailR').val(), password: $('#passwordR').val(), name: $('#nameR').val(), utype: parseInt($('input[name=user_type]:checked').val()), valid: true}),
+                   data: JSON.stringify({email: $('#email').val(), password: $('#password').val(), name: $('#name').val(), utype: parseInt($('input[name=user_type]:checked').val()), valid: valid}),
                    success: p => {
-                       alert('New User Created!: '+valid)
+                         $('#newUserForm').hide();
+                         location.reload();
                    },
                    error: e => {
                        alert('Email Already Taken!')

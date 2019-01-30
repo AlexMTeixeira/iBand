@@ -28,6 +28,11 @@ module.exports.changeActivation = (id,validation) => {
         .exec()
 }
 
+module.exports.delete = id => {
+    User.remove({_id: id})
+        .exec()
+}
+
 module.exports.validatePassword = async (email, password) => {
     user = await this.getByEmail(email)
     if(!user) 
