@@ -54,8 +54,27 @@ module.exports.insert = event => {
     return Event.create(event)
 }
 
-module.exports.delete = id => {
-    return Event
-    .deleteOne({ id })
-    .exec()
+module.exports.updateEvent = async (_id,local,theme,description,date,hour,duration) => {
+    event = await this.getById(_id)
+
+    if(!event)
+        throw new Error("Evento não encontrado!")
+    
+    if(!date)
+        date = event.date
+    
+    if(!hour)
+        date = event.hour
+    
+    if(!duration)
+        date = event.duration
+
+    await Event.update({_id: _id},{$set: {local: local, theme: theme, description: description, date: date, hour: hour, duration: duration}})
+            .exec()
+}
+
+module.exports.delete = async id => {
+    await Event
+        .remove({_id: id })
+        .exec()
 }

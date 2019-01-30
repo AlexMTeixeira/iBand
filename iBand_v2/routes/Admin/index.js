@@ -117,17 +117,46 @@ router.post('/articles/update',
     })
 })
 
+router.get('/articles/remove/:uid',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/articles/remove/' + req.params.uid)
+            .then( () => res.redirect('/admin/articles'))
+        .catch( erro => {
+            console.log('Erro na remoção de articles: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na remoção de articles'})
+        })
+})
+
 // Events Routes
 router.get('/events', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/events/')
         .then( events => {
-            res.render('Admin/events', {events: events.data}
-            ) 
+            res.render('Admin/events', {events: events.data}) 
         })
         .catch( erro => {
             console.log('Erro na consulta de eventos: ' + erro)
             res.render('error', {error: erro, message: 'My bad...'})
+        })
+})
+
+router.post('/events', 
+    passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
+        axios.post('http://localhost:8000/api/events/', req.body)
+            .then(() => res.redirect('/admin/events')) 
+            .catch( erro => {
+                console.log('Erro na Inserção de evento: ' + erro)
+                res.render('error', {error: erro, message: 'My bad...'})
+        })
+})
+
+router.post('/events/update', 
+    passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
+        axios.post('http://localhost:8000/api/events/update', req.body)
+            .then( () => res.redirect('/admin/events'))
+            .catch( erro => {
+                console.log('Erro na Inserção de evento: ' + erro)
+                res.render('error', {error: erro, message: 'My bad...'})
         })
 })
 
@@ -143,6 +172,17 @@ router.get('/events/:eid',
             res.render('error', {error: erro, message: 'My bad...'})
         })
 })
+
+router.get('/events/remove/:uid',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/events/remove/' + req.params.uid)
+            .then( () => res.redirect('/admin/events'))
+        .catch( erro => {
+            console.log('Erro na remoção de events: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na remoção de events'})
+        })
+})
+
 
 
 // Generel Routes

@@ -5,7 +5,7 @@ var EventSchema = new Schema({
     local: {type: String, required: true},
     theme: {type: String, required: true},
     description: {type: String},
-    day: {type: String, required: true},
+    date: {type: String, required: true},
     hour: {type: String, required: true},
     duration: {type: Number, required: true},
     interested: {type: [String]}
