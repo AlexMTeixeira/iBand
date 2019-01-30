@@ -27,9 +27,9 @@ $(()=>{
 
    $('.edit').click(function(){
           var id = this.id
-          var title = this.title
-          var author = this.name
-          var content = this.value
+          var title = $("#Htitle"+id).text()
+          var author = $("#Hauthor"+id).text()
+          var content = $("#Hcontent"+id).text()
           $('#newArticleForm').show()
           $('#_field').text(id)
           $('#idField').show()

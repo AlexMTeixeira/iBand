@@ -3,24 +3,24 @@ extends layout
 block content
     .w3-container.w3-theme-l1
         h1.w3-theme Articles List
-        a.w3-button.w3-theme-d3.w3-card(id="create_article_modal" style="width:auto;") Create Article
+        a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_article_modal" style="width:auto;") Create Article
         br
         br
         ul.w3-ul.w3-card-4
             each a in articles
                 li.w3-bar
                     .w3-bar-item.w3-theme.w3-large.w3-right
-                        button.edit.w3-button(id=""+a._id, title=""+a.title, href=""+a.author, value=""+a.content) &#9881;
+                        button.edit.w3-button(id=""+a._id) &#9881;
                         a.w3-button(href='http://localhost:8000/admin/articles/remove/' + a._id) &#9760;
                     
-                    b.w3-bar-item.w3-hide-small(style="width:10%")= a.author    
+                    b.w3-bar-item.w3-hide-small(id="Hauthor"+a._id, style="width:10%")= a.author    
                     
                     .w3-bar-item(style="width:80%")
-                        b= a.title
+                        b(id="Htitle"+a._id)= a.title
                         br
-                        p.w3-small= a.date
+                        p(id="Hdate"+a._id).w3-small= a.date
                         br
-                        p= a.content
+                        p(id="Hcontent"+a._id)= a.content
                         br
                         p.w3-tiny= "ID: "+a._id
 

@@ -7,22 +7,12 @@ html
 
   body
     //- Navbar (On top)
-    if user 
-        .w3-container.w3-theme-d5.w3-bar.w3-card-4
+    .w3-top
+        .w3-theme-d5.w3-bar
             b.w3-bar-item.w3-mobile iBand
             .w3-right.w3-mobile
-                a.w3-bar-item.w3-button(id='getUsers', href="http://localhost:8000/users") Users
-                a.w3-bar-item.w3-button(id='getEvents', href="http://localhost:8000/events") Events
-                a.w3-bar-item.w3-button(id='getWorks', href="http://localhost:8000/works") Musical Works
-                a.w3-bar-item.w3-button(id='getNews', href="http://localhost:8000/articles") News
-                a(href='/logout').w3-bar-item.w3-button Logout
-    else 
-        .w3-top
-            .w3-theme-d5.w3-bar
-                b.w3-bar-item.w3-mobile iBand
-                .w3-right.w3-mobile
-                    button.w3-bar-item.w3-button(style="width:auto;", id="login_modal_button") LogIn
-                    button.w3-bar-item.w3-button(style="width:auto;" id="register_modal_button") Register
+                button.w3-bar-item.w3-button(style="width:auto;", id="login_modal_button") LogIn
+                button.w3-bar-item.w3-button(style="width:auto;" id="register_modal_button") Register
 
 
     //- Login TAB Form

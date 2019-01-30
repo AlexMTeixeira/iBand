@@ -138,6 +138,14 @@ router.post('/articles/update', (req,res,next)=>{
     }) (req, res, next)
 })
 
+router.get('/articles/remove/:uid', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        ArticleController.delete(req.params.uid)
+                .then(() => res.status(200).send('Article Removed'))
+                .catch(error => res.status(500).send('Erro na remoção de Article!'))
+    }) (req, res, next)
+})
+
 // Events Routes
 router.get('/events', (req, res, next) => {
     passport.authenticate('jwt', async (error, user, info) => {
@@ -154,6 +162,43 @@ router.get('/events/:aid', (req, res, next) => {
         EventController.getById(req.params.aid)
             .then( event => res.jsonp(event) )
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
+router.post('/events', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        var local = req.body.local
+        var theme = req.body.theme
+        var description = req.body.description
+        var date = req.body.date
+        var hour = req.body.hour
+        var duration = req.body.duration
+        EventController.insert({local,theme,description,date,hour,duration})
+                .then(() => res.status(200).send('Event Created'))
+                .catch(error => res.status(500).send('Erro na criação de evento!'))
+    }) (req, res, next)
+})
+
+router.post('/events/update', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        var _id = req.body._id
+        var local = req.body.local
+        var theme = req.body.theme
+        var description = req.body.description
+        var date = req.body.date
+        var hour = req.body.hour
+        var duration = req.body.duration
+        EventController.updateEvent(_id,local,theme,description,date,hour,duration)
+                .then(() => res.status(200).send('Event Updated'))
+                .catch(error => res.status(500).send('Erro no update de evento!'))
+    }) (req, res, next)
+})
+
+router.get('/events/remove/:uid', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        EventController.delete(req.params.uid)
+                .then(() => res.status(200).send('Event Removed'))
+                .catch(error => res.status(500).send('Erro na remoção de Event!'))
     }) (req, res, next)
 })
 

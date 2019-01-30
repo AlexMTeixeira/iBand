@@ -1,37 +1,68 @@
 extends layout
 
 block content
-  .w3-container.w3-theme-l1
-    h1.w3-border-bottom.w3-theme= 'Events List     '
-        a(href="http://localhost:8000/admin/events/new") (new)
-        table.w3-table-all
-            tr
-            th ID
-            th Designation
-            th Place
-            th Type
-            th Info
-            th Date
-
-            each a in events
-                tr
-                    td=e._id
-                    td 
-                        a(href='http://localhost:8000/admin/events/' + e._id)= e.title
-
-                    if e.subtitle
-                        td= e.subtitle
-                    else 
-                        td --- --- ---
+    .w3-container.w3-theme-l1
+        h1.w3-theme Events List
+        a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_event_modal" style="width:auto;") Create Event
+        br
+        br
+        ul.w3-ul.w3-card-4
+            each e in events
+                li.w3-bar
+                    .w3-bar-item.w3-theme.w3-large.w3-right
+                        button.edit.w3-button(id=""+e._id) &#9881;
+                        a.w3-button(href='http://localhost:8000/admin/events/remove/' + e._id) &#9760;
                     
-                    td= e.author
-
-                    td= e.date
-
-                    td 
-                        a(href='http://localhost:8000/admin/events/' + e._id) Edit
+                    b.w3-bar-item.w3-hide-small(id="Htheme"+e._id, style="width:10%")= e.theme    
                     
-                    td 
-                        a(href='http://localhost:8000/admin/events/remove/' + e._id) Remove
+                    .w3-bar-item(style="width:60%")
+                        b(id="Hlocal"+e._id)= e.local
+                        br
+                        p(id="Hdescription"+e._id).w3-small= e.description 
+                        br
+                        p= "Interested: "
+                            each i in e.interested
+                                span= i + "; "                            
+
+                    .w3-bar-item(style="width:20%")
+                        span= "Date:" + e.date + " " + e.hour 
+                        br
+                        span= "Duration: "+e.duration+"Min"
+                        br
+
+    //- Register TAB Form
+    .w3-modal(id="newEventForm")
+      form.w3-modal-content.w3-card-4.w3-animate-zoom
+        span.w3-display-topright.w3-button(id="close_modal") &times;
+        .w3-container.w3-padding-16
+            label(id="idField")
+                b= "ID: "
+                span(id="_field")
+            br
+            label
+                b Theme
+            input(type='text', placeholder="Enter Theme", id="theme" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Local
+            input(type='text', placeholder="Enter Local", id="local", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Description
+            input(type='text', placeholder="Enter Description", id="description" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            .w3-cell-row
+                .w3-cell
+                    label
+                        b Date
+                    input(type='date', id="date" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+                .w3-cell
+                    label
+                        b Hour
+                    input(type='time', id="hour" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+                .w3-cell
+                    label
+                        b Duration
+                    input(type='number', placeholder="Duration in Minutes", id="duration" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")     
+            br
+            button.w3-button.w3-theme-d5(id="newEventButton") Add Article
+            button.w3-button.w3-theme-d5(id="updateEventButton") Update Article      
 
     script(src='/javascripts/Admin/events.js')

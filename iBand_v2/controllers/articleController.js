@@ -69,8 +69,8 @@ module.exports.updateArticle = async (_id,title,author,date,content) => {
             .exec()
 }
 
-module.exports.delete = id => {
-    return Article
-    .deleteOne({ id })
-    .exec()
+module.exports.delete = async id => {
+    await Article
+            .remove({_id: id })
+            .exec()
 }
