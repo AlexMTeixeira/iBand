@@ -20,8 +20,11 @@ passport.use('registo', new localStrategy ({
 
         let name = req.body.name
         let utype = req.body.utype
+        let valid = req.body.valid
+        if(typeof req.body.valid === "undefined" && !req.body.valid)
+            valid = false
 
-        let user = await UserController.insert({email, password, name, utype, valid : false})
+        let user = await UserController.insert({email, password, name, utype, valid})
 
         if (!user)
             throw new Error("Erro a criar utilizador!")
