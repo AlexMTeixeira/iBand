@@ -22,6 +22,12 @@ module.exports.getById = id => {
         .exec()
 }
 
+module.exports.changeActivation = (id,validation) => {
+    return User
+        .findByIdAndUpdate({ _id: id }, { $set: { valid: validation }})
+        .exec()
+}
+
 module.exports.validatePassword = async (email, password) => {
     user = await this.getByEmail(email)
     if(!user) 

@@ -40,7 +40,7 @@ router.post('/register', passport.authenticate('registo', {
 
 // User's Routes
 router.get('/users',  async (req,res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+    passport.authenticate('jwtAdmin', async (error, user, info) => {
         UserController.list()
             .then(users => {
                 res.jsonp(users)
@@ -50,8 +50,24 @@ router.get('/users',  async (req,res, next) => {
 })
 
 router.get('/users/:uid', (req, res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+    passport.authenticate('jwtAdmin', async (error, user, info) => {
         UserController.getById(req.params.uid)
+                .then(dados => res.jsonp(dados))
+                .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
+router.get('/users/activate/:uid', (req,res,next)=>{
+    passport.authenticate('jwtAdmin', async (error, user, info) => {
+        UserController.changeActivation(req.params.uid,true)
+                .then(dados => res.jsonp(dados))
+                .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+    }) (req, res, next)
+})
+
+router.get('/users/deactivate/:uid', (req,res,next)=>{
+    passport.authenticate('jwtAdmin', async (error, user, info) => {
+        UserController.changeActivation(req.params.uid,false)
                 .then(dados => res.jsonp(dados))
                 .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
     }) (req, res, next)

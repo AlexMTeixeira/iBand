@@ -30,6 +30,25 @@ router.get('/users/:uid',
         })
 })
 
+router.get('/users/activate/:uid',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/users/activate/' + req.params.uid)
+            .then( user => res.redirect('/admin/users'))
+        .catch( erro => {
+            console.log('Erro na consulta de utilizadore: ' + erro)
+            res.render('error', {error: erro, message: 'My bad...'})
+        })
+})
+
+router.get('/users/deactivate/:uid',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/users/deactivate/' + req.params.uid)
+            .then( user => res.redirect('/admin/users'))
+        .catch( erro => {
+            console.log('Erro na consulta de utilizadore: ' + erro)
+            res.render('error', {error: erro, message: 'My bad...'})
+        })
+})
 
 // Article Routes
 router.get('/articles', 
