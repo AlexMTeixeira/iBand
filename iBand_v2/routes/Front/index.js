@@ -105,10 +105,6 @@ router.get('/events/:eid',
 })
 
 
-// Generel Routes
-router.get('/', passport.authenticate('jwt', {session: false}) , (req, res, next) => {
-  res.render('Front/index')
-});
 
 
 module.exports = router;

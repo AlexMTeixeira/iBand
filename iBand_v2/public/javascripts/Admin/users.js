@@ -11,10 +11,16 @@ $(()=>{
        
    })                                            
    $('.w3-modal-content').click(function(e){
-      e.stopPropagation();
+        e.stopPropagation();
    })                                            
    
    $('#close_modal').click(()=>{
-    $('#newUserForm').hide()
+        $('#newUserForm').hide()
+   })
+
+   $('.edit').click( e => {
+       alert(JSON.stringify(e))
+        $('#newUserForm').show()
+        $('#email').val($(this).attr('email'))
    })
 })

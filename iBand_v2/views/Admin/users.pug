@@ -14,13 +14,13 @@ block content
                             a.w3-button(href='http://localhost:8000/admin/users/deactivate/' + u._id) &#10060;
                         else
                             a.w3-button(href='http://localhost:8000/admin/users/activate/' + u._id)  &#9989;
-                        a.w3-button(href='http://localhost:8000/admin/users/'+u._id) &#9881;
+                        a(emails=u.email).edit.w3-button &#9881;
                         a.w3-button(href='http://localhost:8000/admin/users/remove/' + u._id) &#9760;
                     
                     b.w3-bar-item.w3-hide-small(style="width:10%")= u.name
                     
                     .w3-bar-item(style="width:40%")
-                        a.w3-large(href="mailto:"+u.email)= u.email 
+                        a.w3-large(href="mailto:"+u.email, id=u.user)= u.email 
                         br
                         span= u._id
                     
@@ -36,7 +36,7 @@ block content
     //- Register TAB Form
     .w3-modal(id="newUserForm")
       form.w3-modal-content.w3-card-4.w3-animate-zoom
-        span.w3-display-topright.w3-button(onclick="document.getElementById('newUserForm').style.display='none'") &times;
+        span.w3-display-topright.w3-button(id="close_modal") &times;
         .w3-container.w3-padding-16
             label
                 b Email

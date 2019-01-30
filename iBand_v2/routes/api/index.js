@@ -7,8 +7,8 @@ var ArticleController = require('../../controllers/articleController')
 var EventController = require('../../controllers/eventController')
 
 // General Routes
-router.post('/login/', async (req,res,next) => {
-    passport.authenticate('login', async (error,user,info)=> {
+router.post('/login', async (req,res,next) => {
+    passport.authenticate('login', async (err,user,info)=> {
         try {
             if(err || !user){
                 const error = new Error('An Error Occured')
@@ -94,50 +94,6 @@ router.get('/events/:aid', (req, res, next) => {
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
     }) (req, res, next)
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 module.exports = router

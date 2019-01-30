@@ -39,7 +39,7 @@ passport.use('login', new localStrategy ({
     passwordField: 'password'
 }, async (email, password, done) => {
     try {
-        if (typeof email === "undefined" && !email)
+        if (typeof email === "undefined" && !email) 
             throw new Error ("Email não definido")
         if (typeof password === "undefined" && !password)
             throw new Error ("Password não definida")

@@ -37,7 +37,6 @@ $(()=>{
         if(!regexEmail.test($('#emailL').val())) {
             $('#passwordL').val('')
             $('#emailL').val('')
-            $('#emailL').attr('style', "border-radius: 5px; border:#FF0000 1px solid;");
             $('#emailL').attr("placeholder", "Please insert a email");
         } else {
             $.ajax({
