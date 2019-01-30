@@ -14,7 +14,7 @@ block content
                             a.w3-button(href='http://localhost:8000/admin/users/deactivate/' + u._id) &#10060;
                         else
                             a.w3-button(href='http://localhost:8000/admin/users/activate/' + u._id)  &#9989;
-                        a.edit.w3-button(email=u.email) &#9881;
+                        button.edit.w3-button(value=u.email) &#9881;
                         a.w3-button(href='http://localhost:8000/admin/users/remove/' + u._id) &#9760;
                     
                     b.w3-bar-item.w3-hide-small(style="width:10%")= u.name

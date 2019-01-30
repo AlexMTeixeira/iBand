@@ -20,7 +20,7 @@ $(()=>{
    })
 
    $('.edit').on('click', ()=>{
-        var email = $(this).find('email')
+        var email = $(this).val()
           alert(JSON.stringify(email))
         $('#newUserForm').show()
         $('#email').val(email)

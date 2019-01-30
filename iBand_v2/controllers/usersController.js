@@ -28,8 +28,8 @@ module.exports.changeActivation = (id,validation) => {
         .exec()
 }
 
-module.exports.delete = id => {
-    User.remove({_id: id})
+module.exports.delete = async id => {
+    await User.remove({_id: id})
         .exec()
 }
 
