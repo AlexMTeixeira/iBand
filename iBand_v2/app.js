@@ -20,6 +20,12 @@ var frontRouter = require('./routes/Front/index')
 
 
 var app = express();
+
+// Base de dados
+mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
+      .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
+      .catch(erro => console.log("Erro de conexão: " + erro))
+var WorkController=require('./controllers/workController')
 fs.readFile('./sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
   console.log("hey eu existo")
   if(err) return err;
@@ -39,18 +45,23 @@ fs.readFile('./sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
           var folder = spl[0]
           fs.readFile('./sheets/iBanda-PDFs/'+folder+'/'+instr.partitura.path,(err,pdf)=>{
             if(err) console.log('Ficheiro nao existe')
-            else console.log('Ficheiro existe')
+            else {
+              var title = temp2.titulo
+              var instrument = instr.nome
+              var sheetPath = instr.partitura.path
+              var tone = instr.partitura.voz
+              var prod = {title,instrument,sheetPath,tone}
+              console.log(prod)
+              WorkController.insert(prod)
+                      .then(() => {res.status(200).send('Obra Adicionada')})
+                      .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
+            }
           })
         })
       })
     })
   }
 })
-// Base de dados
-mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
-      .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
-      .catch(erro => console.log("Erro de conexão: " + erro))
-
 //Passport Autentication
 app.use(session({
   genid: req => {
