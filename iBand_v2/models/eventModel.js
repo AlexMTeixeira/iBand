@@ -1,23 +1,13 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-var localSchema = new Schema({
-    space: {type: String},
-    lat: {type: Number},
-    long: {type: Number}
-})
-
-var timetableSchema = new Schema({
-    date: {type: Date},
-    duration: {type: Number},
-    desc: {type: String}
-})
-
 var EventSchema = new Schema({
-    local: {type: localSchema, required: true},
+    local: {type: String, required: true},
     theme: {type: String, required: true},
     description: {type: String},
-    timetable: {type: [timetableSchema], required: true},
+    day: {type: String, required: true},
+    hour: {type: String, required: true},
+    duration: {type: Number, required: true},
     interested: {type: [String]}
 })
 

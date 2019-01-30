@@ -3,9 +3,9 @@ var Event = require('../models/eventModel')
 // Lista de eventos
 module.exports.list = () => {
     return Event
-    .find()
-    .sort({date: -1})
-    .exec()
+        .find()
+        .sort({day: -1})
+        .exec()
 }
 
 // Lista de eventos por Tipo
