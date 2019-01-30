@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var fs=require('fs')
 
 var mongoose = require('mongoose');
 var uuid = require('uuid/v4')
@@ -11,14 +11,41 @@ var session = require('express-session')
 var FileStore = require('session-file-store')(session)
 var passport = require('passport')
 
+
 require('./authentic/aut');
 
 var APIRouter   = require('./routes/api/index')
 var adminRouter = require('./routes/Admin/index')
 var frontRouter = require('./routes/Front/index')
 
-var app = express();
 
+var app = express();
+fs.readFile('./sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
+  console.log("hey eu existo")
+  if(err) return err;
+  else{
+    var path = "./sheets/json/"
+    var temp = JSON.parse(content)
+    var lst = temp.files
+    console.log(lst)
+    lst.forEach((str)=>{
+      var up = path+str+'.json'
+      fs.readFile(up,(err,dat)=>{
+        var temp2 = JSON.parse(dat)
+        var instrLst = temp2.instrumentos
+        instrLst.forEach((instr)=>{
+          console.log(instr.partitura.path)
+          var spl = instr.partitura.path.split('-')
+          var folder = spl[0]
+          fs.readFile('./sheets/iBanda-PDFs/'+folder+'/'+instr.partitura.path,(err,pdf)=>{
+            if(err) console.log('Ficheiro nao existe')
+            else console.log('Ficheiro existe')
+          })
+        })
+      })
+    })
+  }
+})
 // Base de dados
 mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
       .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
