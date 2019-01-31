@@ -26,11 +26,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
       .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
       .catch(erro => console.log("Erro de conexão: " + erro))
 var WorkController=require('./controllers/workController')
-fs.readFile('./sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
+fs.readFile('.public/sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
   console.log("hey eu existo")
   if(err) return err;
   else{
-    var path = "./sheets/json/"
+    var path = "./public/sheets/json/"
     var temp = JSON.parse(content)
     var lst = temp.files
     console.log(lst)
@@ -53,7 +53,7 @@ fs.readFile('./sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
               var prod = {title,instrument,sheetPath,tone}
               console.log(prod)
               WorkController.insert(prod)
-                      .then(() => {res.status(200).send('Obra Adicionada')})
+                      .then(() => {console.log('passou')})
                       .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
             }
           })
