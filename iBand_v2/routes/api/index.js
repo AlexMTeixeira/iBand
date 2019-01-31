@@ -5,6 +5,7 @@ var passport = require('passport')
 var UserController = require('../../controllers/usersController')
 var ArticleController = require('../../controllers/articleController')
 var EventController = require('../../controllers/eventController')
+var WorkController = require('../../controllers/workController')
 
 // General Routes
 router.post('/login', async (req,res,next) => {
@@ -199,6 +200,26 @@ router.get('/events/remove/:uid', (req,res,next)=>{
         EventController.delete(req.params.uid)
                 .then(() => res.status(200).send('Event Removed'))
                 .catch(error => res.status(500).send('Erro na remoção de Event!'))
+    }) (req, res, next)
+})
+
+// Events Routes
+router.get('/works', (req, res, next) => {
+    passport.authenticate('jwt', async (error, user, info) => {
+        WorkController.list()
+            .then( works => {
+                res.jsonp(works) 
+            })
+            .catch(error => res.status(500).send('Error on getting Users'))
+    }) (req, res, next)
+})
+
+
+router.get('/works/remove/:uid', (req,res,next)=>{
+    passport.authenticate('jwt', async (error, user, info) => {
+        WorkController.delete(req.params.uid)
+                .then(() => res.status(200).send('Works Removed'))
+                .catch(error => res.status(500).send('Erro na remoção de Works!'))
     }) (req, res, next)
 })
 

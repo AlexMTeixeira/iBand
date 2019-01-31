@@ -183,7 +183,28 @@ router.get('/events/remove/:uid',
         })
 })
 
+// Works Route
+router.get('/works', 
+    passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/works/')
+            .then( works => {
+                res.render('Admin/works', {works: works.data}) 
+            })
+            .catch( erro => {
+                console.log('Erro na consulta de Obras: ' + erro)
+                res.render('error', {error: erro, message: 'My bad...'})
+            })
+})
 
+router.get('/works/remove/:uid',
+    passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        axios.get('http://localhost:8000/api/works/remove/' + req.params.uid)
+            .then( () => res.redirect('/admin/works'))
+        .catch( erro => {
+            console.log('Erro na remoção de obras: ' + erro)
+            res.render('error', {error: erro, message: 'Erro na remoção de obras'})
+        })
+})
 
 // Generel Routes
 router.get('/', passport.authenticate('jwtAdmin', {session: false}) , (req, res, next) => {
