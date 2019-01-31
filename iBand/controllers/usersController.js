@@ -54,7 +54,9 @@ module.exports.validatePassword = async (email, password) => {
     if(!user) 
         throw new Error("Utilizador não encontrado!")
 
-    if (!user.isValidPassword(password))
+    var compare = await user.isValidPassword(password)
+
+    if(!compare)
         throw new Error ("Invalid password")
 
     return user
