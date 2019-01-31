@@ -9,7 +9,7 @@ var InstrSchema = new Schema({
 var WorkSchema = new Schema({
     title:{type:String,required:true,unique:true},
     type:{type:String,required:true},
-    composer:{type:String,required:true},
+    composer:{type:String,required:false},
     arrangement:{type:String,required:false},
     instruments:{type:[InstrSchema]}
 })
