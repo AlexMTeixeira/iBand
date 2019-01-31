@@ -16,6 +16,8 @@ block content
                     b.w3-bar-item.w3-hide-small(id="Htheme"+e._id, style="width:10%")= e.theme    
                     
                     .w3-bar-item(style="width:60%")
+                        b(id="Hauthor"+e._id)= e.author
+                        br
                         b(id="Hlocal"+e._id)= e.local
                         br
                         p(id="Hdescription"+e._id).w3-small= e.description 
@@ -39,6 +41,9 @@ block content
                 b= "ID: "
                 span(id="_field")
             br
+            label
+                b Author
+            input(type='text', placeholder="Enter Author", id="author" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
             label
                 b Theme
             input(type='text', placeholder="Enter Theme", id="theme" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")

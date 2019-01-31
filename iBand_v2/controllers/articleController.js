@@ -56,7 +56,7 @@ module.exports.insert = article => {
     return Article.create(article)
 }
 
-module.exports.updateArticle = async (_id,title,author,date,content) => {
+module.exports.updateArticle = async (_id,title,author,date,content,utype) => {
     article = await this.getById(_id)
 
     if(!article)
@@ -65,12 +65,20 @@ module.exports.updateArticle = async (_id,title,author,date,content) => {
     if(!date)
         date = article.date
     
-    await Article.update({_id: _id},{$set: {title: title, author: author, date: date, content: content}})
+    if(utype==0 || article.author==author) {
+        await Article.update({_id: _id},{$set: {title: title, author: author, date: date, content: content}})
             .exec()
+    }
+    else 
+        throw new Error("User Invalido!")
 }
 
-module.exports.delete = async id => {
-    await Article
+module.exports.delete = async (id,email, utype) => {
+    article = await this.getById(id)
+
+    if(utype==0 || article.author==author) {
+        await Article
             .remove({_id: id })
             .exec()
+    } else throw new Error("User Invalido")
 }

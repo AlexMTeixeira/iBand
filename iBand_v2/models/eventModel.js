@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var EventSchema = new Schema({
+    author: {type: String, required: true},
     local: {type: String, required: true},
     theme: {type: String, required: true},
     description: {type: String},

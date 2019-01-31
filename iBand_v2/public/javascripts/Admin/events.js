@@ -29,10 +29,12 @@ $(()=>{
           var id = this.id
           var theme = $("#Htheme"+id).text()
           var local = $("#Hlocal"+id).text()
+          var author = $("#Hauthor"+id).text()
           var description = $("#Hdescription"+id).text()
           $('#newEventForm').show()
           $('#_field').text(id)
           $('#idField').show()
+          $('#author').val(author)
           $('#theme').val(theme)
           $('#local').val(local)
           $('#description').val(description)
@@ -48,7 +50,7 @@ $(()=>{
                type: 'POST',
                contentType: 'application/json',
                url: 'http://localhost:8000/admin/events/update/',
-               data: JSON.stringify({_id: $('#_field').text(),local: $('#local').val(), theme: $('#theme').val(),  description: $('#description').val(), date: $('#date').val(), hour: $('#hour').val(), duration: parseInt($('#duration').val())}),
+               data: JSON.stringify({_id: $('#_field').text(), author: $('#author').val(),local: $('#local').val(), theme: $('#theme').val(),  description: $('#description').val(), date: $('#date').val(), hour: $('#hour').val(), duration: parseInt($('#duration').val())}),
                success: p => {
                     $('#newEventForm').hide();
                     location.reload();
@@ -66,7 +68,7 @@ $(()=>{
                type: 'POST',
                contentType: 'application/json',
                url: 'http://localhost:8000/admin/events/',
-               data: JSON.stringify({local: $('#local').val(), theme: $('#theme').val(),  description: $('#description').val(), date: $('#date').val(), hour: $('#hour').val(), duration: parseInt($('#duration').val())}),
+               data: JSON.stringify({author: $('#author').val(), local: $('#local').val(), theme: $('#theme').val(),  description: $('#description').val(), date: $('#date').val(), hour: $('#hour').val(), duration: parseInt($('#duration').val())}),
                success: p => {
                     $('#newEventForm').hide();
                     location.reload();

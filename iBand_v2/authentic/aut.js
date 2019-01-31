@@ -94,3 +94,17 @@ passport.use('jwtAdmin', new JWTstrategy({
         return done(erro)
     }
 }))
+
+passport.use('jwtProd', new JWTstrategy({
+    secretOrKey: "pri2018_iBand",
+    jwtFromRequest: ExtractJWT.fromExtractors([extractFromSession])
+}, async (token,done) => {
+    try{
+        if(token.user.utype != 2)
+            return done(null, token.user)
+        else
+            return done(null, false, {message: "Access restricted!"})
+    } catch (erro) {
+        return done(erro)
+    }
+}))

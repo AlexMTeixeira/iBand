@@ -54,7 +54,7 @@ module.exports.insert = event => {
     return Event.create(event)
 }
 
-module.exports.updateEvent = async (_id,local,theme,description,date,hour,duration) => {
+module.exports.updateEvent = async (_id,local,theme,description,date,hour,duration,author,utype) => {
     event = await this.getById(_id)
 
     if(!event)
@@ -64,17 +64,26 @@ module.exports.updateEvent = async (_id,local,theme,description,date,hour,durati
         date = event.date
     
     if(!hour)
-        date = event.hour
+        hour = event.hour
     
     if(!duration)
-        date = event.duration
+        duration = event.duration
 
-    await Event.update({_id: _id},{$set: {local: local, theme: theme, description: description, date: date, hour: hour, duration: duration}})
+    if(utype==0 || event.author==author) {
+        await Event.update({_id: _id},{$set: {local: local, theme: theme, description: description, date: date, hour: hour, duration: duration}})
             .exec()
+    } else {
+        console.log("User type: " + utype)
+        throw new Error("User Invalido")
+    }
 }
 
-module.exports.delete = async id => {
-    await Event
-        .remove({_id: id })
-        .exec()
+module.exports.delete = async (id,email,utype) => {
+    event = await this.getById(id)
+
+    if(utype==0 || event.author==author) {
+        await Event
+            .remove({_id: id })
+            .exec()
+    } else throw new Error("User Invalido")
 }
