@@ -7,50 +7,12 @@ html
 
   body
     //- Navbar (On top)
-    .w3-top
-        .w3-theme-d5.w3-bar
-            b.w3-bar-item.w3-mobile iBand
-            .w3-right.w3-mobile
-                button.w3-bar-item.w3-button(style="width:auto;", id="login_modal_button") LogIn
-                button.w3-bar-item.w3-button(style="width:auto;" id="register_modal_button") Register
-
-
-    //- Login TAB Form
-    .w3-modal(id="loginForm")
-        form.w3-modal-content.w3-card-4.w3-animate-zoom
-            span.w3-display-topright.w3-button(id="close_login_modal_button") &times;
-            .w3-container.w3-padding-16
-                label(for="email")
-                    b Email
-                input(type='text', placeholder="Enter Email", name="email", id="emailL", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                label(for="psw")
-                    b Password
-                input(type='password', placeholder="Enter Password", name='psw', id="passwordL", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                button.w3-button.w3-theme-d5(id="LoginButton") Login
-
-    //- Register TAB Form
-    .w3-modal(id="registerForm")
-        form.w3-modal-content.w3-card-4.w3-animate-zoom
-            span.w3-display-topright.w3-button(id="close_register_modal_button") &times;
-            .w3-container.w3-padding-16
-                label
-                    b Email
-                input(type='text', placeholder="Enter Email", id="emailR" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                label
-                    b Password
-                input(type='password', placeholder="Enter Password", id="passwordR", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                label
-                    b Name
-                input(type='text', placeholder="First and Last Name", id="nameR" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                label
-                    b User Type
-            .w3-container
-                input.w3-radio(type='radio', name='user_type', id='producer', value="1")
-                lab Producer
-                br
-                input.w3-radio(type='radio', name='user_type', id='consumer', value="2", checked)
-                lab Client
-            br
-            button.w3-button.w3-theme-d5(id="RegisterButton") Register
+    .w3-container.w3-theme-d5.w3-bar.w3-card-4
+        b.w3-bar-item.w3-mobile iBand
+        .w3-right.w3-mobile
+            a.w3-bar-item.w3-button(id='getEvents', href="http://localhost:8000/admin/events") Events
+            a.w3-bar-item.w3-button(id='getWorks', href="http://localhost:8000/admin/works") Musical Works
+            a.w3-bar-item.w3-button(id='getNews', href="http://localhost:8000/admin/articles") News
+            a(href='/logout').w3-bar-item.w3-button Logout
 
     block content

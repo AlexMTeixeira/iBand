@@ -1,0 +1,10 @@
+each a in articles
+    li.w3-bar
+        b.w3-bar-item.w3-hide-small(style="width:10%")= a.author    
+                    
+        .w3-bar-item(style="width:80%")
+            b= a.title
+            br
+            p.w3-small= a.date
+            br
+            p= a.content

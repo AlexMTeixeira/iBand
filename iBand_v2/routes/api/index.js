@@ -21,13 +21,13 @@ router.post('/login', async (req,res,next) => {
                 const token = jwt.sign({user: myuser}, 'pri2018_iBand')
                 req.user.token = token
                 req.session.token = token
-                if(req.user.utype == 0) 
+                if(user.utype == 0) 
                     res.send('/admin/')
                 else
-                    res.send('/users/')
+                    res.send('/user/')
             })
-        } catch (error) {
-            return next(error)
+        } catch (err) {
+            return next(err)
         }
     }) (req,res,next)
 })

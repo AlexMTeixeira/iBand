@@ -21,6 +21,7 @@ require('./authentic/aut');
 var APIRouter   = require('./routes/api/index')
 var adminRouter = require('./routes/Admin/index')
 var frontRouter = require('./routes/Front/index')
+var homeRouter = require('./routes/index')
 
 
 var app = express();
@@ -114,7 +115,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Use of Routes
 app.use('/api',APIRouter)
 app.use('/admin', adminRouter);
-app.use('/', frontRouter);
+app.use('/', homeRouter);
+app.use('/user',frontRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

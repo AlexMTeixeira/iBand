@@ -1,0 +1,20 @@
+each e in events
+    li.w3-bar
+        b.w3-bar-item.w3-hide-small(style="width:10%")= e.theme    
+        
+        .w3-bar-item(style="width:60%")
+            b= e.author
+            br
+            b= e.local
+            br
+            p.w3-small= e.description 
+            br
+            p= "Interested: "
+                each i in e.interested
+                    span= i + "; "                            
+
+        .w3-bar-item(style="width:20%")
+            span= "Date:" + e.date + " " + e.hour 
+            br
+            span= "Duration: "+e.duration+"Min"
+            br
