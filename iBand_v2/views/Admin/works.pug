@@ -32,7 +32,11 @@ block content
                                     each i in w.instruments
                                         tr
                                             td= i.name
-                                            td= i.sheetPath
+                                            td
+                                                if i.exists
+                                                    a(href='/'+i.path)= i.filename
+                                                else
+                                                    span= i.filename
                                             td= i.voz
                         
                         p.w3-tiny= "ID: "+w._id

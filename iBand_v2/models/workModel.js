@@ -2,7 +2,8 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var InstrSchema = new Schema({
     name:{type:String},
-    sheetPath:{type:String},
+    filename:{type:String},
+    path: {type: String},
     voz:{type:String,required:false},
     exists:Boolean
 })

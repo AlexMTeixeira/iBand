@@ -57,7 +57,8 @@ zip.on('ready', () => {
               var ex = zip.entry(fpath) != undefined ? true : false
               var ins = {
                 name: instr.nome,
-                sheetPath: ipp,
+                filename: ipp,
+                path: 'sheets/'+pasta+'/'+ipp,
                 voz:instr.partitura.voz,
                 exists: ex
               }
