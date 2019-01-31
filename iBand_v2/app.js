@@ -27,7 +27,13 @@ var app = express();
 
 // Base de dados
 mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
-      .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
+      .then(()=> {
+        mongoose.connection.db.dropCollection('works', (err,result)=>{
+          if(err) console.log(err)
+          else console.log('apagado')
+        })
+        console.log("Mongo ready: " + mongoose.connection.readyState)
+      })
       .catch(erro => console.log("Erro de conexão: " + erro))
 
 const del = require('del')
