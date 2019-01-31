@@ -25,39 +25,58 @@ var app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
       .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
       .catch(erro => console.log("Erro de conexão: " + erro))
+
 var WorkController=require('./controllers/workController')
-fs.readFile('.public/sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
-  console.log("hey eu existo")
-  if(err) return err;
+fs.readFile('./public/sheets/json/iBanda-SIP.json','utf8',(err,content)=>{
+
+  if(err) {
+    console.log('err'+err)
+    return err;
+  }
   else{
     var path = "./public/sheets/json/"
     var temp = JSON.parse(content)
     var lst = temp.files
-    console.log(lst)
     lst.forEach((str)=>{
       var up = path+str+'.json'
       fs.readFile(up,(err,dat)=>{
         var temp2 = JSON.parse(dat)
         var instrLst = temp2.instrumentos
-        instrLst.forEach((instr)=>{
-          console.log(instr.partitura.path)
-          var spl = instr.partitura.path.split('-')
-          var folder = spl[0]
-          fs.readFile('./sheets/iBanda-PDFs/'+folder+'/'+instr.partitura.path,(err,pdf)=>{
-            if(err) console.log('Ficheiro nao existe')
-            else {
-              var title = temp2.titulo
-              var instrument = instr.nome
-              var sheetPath = instr.partitura.path
-              var tone = instr.partitura.voz
-              var prod = {title,instrument,sheetPath,tone}
-              console.log(prod)
-              WorkController.insert(prod)
-                      .then(() => {console.log('passou')})
-                      .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
-            }
-          })
-        })
+        var title = temp2.titulo
+        WorkController.getByTitle(title)
+                .then(result =>{
+                  if(result==null){
+                    WorkController
+                    .insert({title:title,instruments:[]})
+                    .then(
+                      instrLst.forEach((instr)=>{
+                        var spl = instr.partitura.path.split('-')
+                        var folder = spl[0]
+              
+                        fs.readFile('./public/sheets/iBanda-PDFs/'+folder+'/'+instr.partitura.path,(err,pdf)=>{
+                          if(err) console.log('Ficheiro nao existe')
+                          else {
+                           
+                            var name = instr.nome
+                            var sheetPath = instr.partitura.path
+                            var tone
+                            if (instr.partitura.voz)
+                               tone = instr.partitura.voz
+                            else tone = "Undef"
+                            var prod = {name,sheetPath,tone}
+                            
+                            WorkController.insertInto(title,prod)
+                                .then(res => console.log('updated! '+ JSON.stringify(res)))
+                                .catch(err => console.log(err))
+                          }
+                        })
+                      })
+                      
+                    )
+                    .catch(err => console.log(err))
+                  }})
+                  .catch(err => console.log(err))
+        
       })
     })
   }
