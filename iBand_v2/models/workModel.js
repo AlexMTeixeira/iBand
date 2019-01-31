@@ -3,10 +3,14 @@ var Schema = mongoose.Schema
 var InstrSchema = new Schema({
     name:{type:String},
     sheetPath:{type:String},
-    voz:{type:String,required:false}
+    voz:{type:String,required:false},
+    exists:Boolean
 })
 var WorkSchema = new Schema({
     title:{type:String,required:true,unique:true},
+    type:{type:String,required:true},
+    composer:{type:String,required:true},
+    arrangement:{type:String,required:false},
     instruments:{type:[InstrSchema]}
 })
 

@@ -30,7 +30,41 @@ mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
       .then(()=> console.log("Mongo ready: " + mongoose.connection.readyState))
       .catch(erro => console.log("Erro de conexão: " + erro))
 
-
+      var WorkController=require('./controllers/workController')
+      zip.on('ready', () => {
+          let jsonLinks = zip.entryDataSync('sheets/json/iBanda-SIP.json')
+          var files = JSON.parse(jsonLinks).files
+          if(files!=null)
+            files.forEach((file)=>{
+              const data = zip.entryDataSync(`sheets/json/${file}.json`);
+              var instrData = JSON.parse(data)
+              var obj = {
+                title:instrData.titulo,
+                type:instrData.tipo,
+                composer:instrData.compositor,
+                arrangement:instrData.arranjo,
+                instruments:[]
+              }
+              instrData.instrumentos.forEach((instr)=>{
+                var ipp =instr.partitura.path
+                var pasta = ipp.split('-')[0]
+                var fpath = `sheets/iBanda-PDFs/${pasta}/${ipp}`
+                var ex = zip.entry(fpath) != undefined ? true : false
+                var ins = {
+                  name: instr.nome,
+                  sheetPath: ipp,
+                  exists: ex
+                }
+                obj.instruments.push(ins)
+              })
+              WorkController.insert(obj)
+            })
+          else{
+            console.log("Erro, SIP inacessivel")
+          }
+          // Do not forget to close the file once you're done
+          zip.close()
+      });
 
 //Passport Autentication
 app.use(session({
