@@ -110,6 +110,12 @@ module.exports.removeFromSIP = fich =>{
             fs.writeFile('./temp/json/iBanda-SIP.json', JSON.stringify(sip),'utf8',()=>{
                 console.log('SIP alterado (DEL)')
             })
+            try{
+                fs.unlinkSync(`./temp/json/${fich._id}.json`)
+                console.log(`./temp/json/${fich._id}.json`)
+            } catch(err){
+                console.log(err)
+            }  
         }
         else console.log('Erro na leitura do SIP')
     })

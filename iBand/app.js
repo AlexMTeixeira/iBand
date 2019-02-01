@@ -36,7 +36,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
     console.log("Mongo ready: " + mongoose.connection.readyState)
   })
   .catch(erro => console.log("Erro de conexão: " + erro))
-/* Chamada tem de seguir este padrão
 var WorkController=require('./controllers/workController')
 if(fs.existsSync('./temp')){
   del.sync(['./temp/**'])
@@ -46,7 +45,7 @@ zip.on('ready', () => {
   zip.extract('sheets/', './temp', err => {
       console.log(err ? 'ERRO extr SIP'+err : 'SIP Extraido');
       if(fs.existsSync('./temp/json/iBanda-SIP.json')){
-        var obj = {_id:"m2700"}
+        var obj = {_id:"m2"}
         WorkController.addWorkSIP(obj)
         WorkController.toJsonFolder(obj)
         WorkController.removeFromSIP(obj)
@@ -56,7 +55,7 @@ zip.on('ready', () => {
       zip.close();
   });
 })
-*/
+
 //Passport Autentication
 app.use(session({
   genid: req => {
