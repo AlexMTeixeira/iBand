@@ -203,5 +203,24 @@ router.get('/events/remove/:uid',
     })
 })
 
+// Works Route
+router.get('/works', 
+    passport.authenticate('jwt', {session : false}), (req, res, next) => {
+    axios.get('http://localhost:8000/api/works/', {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+    .then( works => {
+        res.render('Front/works', {works: works.data, user: req.user}) 
+    })
+    .catch( erro => {
+        console.log('Erro na consulta de Obras: ' + erro)
+        res.render('error', {error: erro, message: 'My bad...'})
+    })
+})
+
+
 
 module.exports = router;
