@@ -6,6 +6,7 @@ var UserController = require('../../controllers/usersController')
 var ArticleController = require('../../controllers/articleController')
 var EventController = require('../../controllers/eventController')
 var WorkController = require('../../controllers/workController')
+var LogController = require('../../controllers/logController')
 
 // General Routes
 router.post('/login', async (req,res,next) => {
@@ -21,6 +22,9 @@ router.post('/login', async (req,res,next) => {
                 const token = jwt.sign({user: myuser}, 'pri2018_iBand')
                 req.user.token = token
                 req.session.token = token
+
+                LogController.insert({user_id:user._id, action:'login'})
+
                 if(user.utype == 0) 
                     res.send('/admin/')
                 else
@@ -43,6 +47,7 @@ router.post('/register', passport.authenticate('registo', {
 router.get('/users',  passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     UserController.list()
         .then(users => {
+            LogController.insert({user_id:req.user._id, action:'users list'})
             res.jsonp(users)
         })
         .catch(error => res.status(500).send('Error on getting Users'))
@@ -50,7 +55,10 @@ router.get('/users',  passport.authenticate('jwtAdmin', {session: false}), (req,
 
 router.get('/users/:uid', passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     UserController.getById(req.params.uid)
-            .then(dados => res.jsonp(dados))
+            .then(dados => {
+                LogController.insert({user_id:req.user._id, action:'user view ' + req.params.uid})
+                res.jsonp(dados)
+            })
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
 })
 
