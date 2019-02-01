@@ -3,24 +3,24 @@ extends layout
 block content
     .w3-container.w3-theme-l1
         h1.w3-theme Musical Works List
-        a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_work_modal" style="width:auto;") Create Musical Work
-        br
+        if(user.utype==1)
+            a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_work_modal" style="width:auto;") Create Musical Work
+            br
         br
         ul.w3-ul.w3-card-4
 
             li.w3-bar.w3-theme-d1
                 .w3-col.l3.s3.m3 Title
-                .w3-col.l2.s2.m2 Composer
+                .w3-col.l3.s3.m3 Composer
                 .w3-col.l3.s3.m3 Type
                 .w3-col.l2.s2.m2 Arrangement
                 .w3-col.l1.s1.m1 ID
-                .w3-col.l1.s1.m1.w3-right-align Actions
 
             each w in works
                 li.w3-bar
                     .w3-col.l3.s3.m3
                         b(id="Htitulo"+w._id)= w.title
-                    .w3-col.l2.s2.m2
+                    .w3-col.l3.s3.m3
                         if w.composer
                             p(id="Hcompositor"+w._id).w3-small= w.composer
                         else
@@ -35,9 +35,6 @@ block content
                     .w3-col.l1.s1.m1
                         p.w3-tiny= w._id
                     
-                    .w3-col.l1.s1.m1.w3-right-align
-                        .w3-large.w3-right
-                            a.w3-button(href='http://localhost:8000/admin/works/remove/' + w._id) &#9760;
 
                     .w3-col.l12.s12.m12.w3-block.w3-button
                         b.w3-button.w3-light-grey.accordion(id="instruments-header-"+w._id) Instruments
@@ -67,12 +64,11 @@ block content
     .w3-modal(id="newWorkForm")
       form.w3-modal-content.w3-card-4.w3-animate-zoom
         span.w3-display-topright.w3-button(id="close_modal") &times;
-        form.w3-container.w3-padding-16(id="myUploadForm")
-            fieldset
-                label
-                    b Musical Work File
-                input(type='file', placeholder="Enter Musical Work (.json)", id="file" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
-                br
-                button.w3-button.w3-theme-d5(id="newWorkButton") Add Musical Work       
+        .w3-container.w3-padding-16
+            label
+                b Musical Work File
+            input(type='file', placeholder="Enter Musical Work (.json)", id="file" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            
+            button.w3-button.w3-theme-d5(id="newWorkButton") Add Musical Work      
 
-    script(src='/javascripts/Admin/works.js')
+    script(src='/javascripts/User/works.js')

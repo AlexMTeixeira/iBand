@@ -140,4 +140,87 @@ router.get('/events/top5',
         })
 })
 
+router.get('/events', 
+    passport.authenticate('jwt', {session : false}), (req, res, next) => {
+    axios.get('http://localhost:8000/api/events/', {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+    .then( events => {
+        res.render('Front/events', {events: events.data, user: req.user}) 
+    })
+    .catch( erro => {
+        console.log('Erro na consulta de eventos: ' + erro)
+        res.render('error', {error: erro, message: 'My bad...'})
+    })
+})
+
+router.post('/events', 
+    passport.authenticate('jwtProd', {session : false}), (req, res, next) => {
+    axios.post('http://localhost:8000/api/events/', req.body, {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+        .then(() => res.redirect('/user/events')) 
+        .catch( erro => {
+            console.log('Erro na Inserção de evento: ' + erro)
+            res.render('error', {error: erro, message: 'My bad...'})
+    })
+})
+
+router.post('/events/update', 
+    passport.authenticate('jwtProd', {session : false}), (req, res, next) => {
+    axios.post('http://localhost:8000/api/events/update', req.body, {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+        .then( () => res.redirect('/user/events'))
+        .catch( erro => {
+            console.log('Erro na Inserção de evento: ' + erro)
+            res.render('error', {error: erro, message: 'My bad...'})
+    })
+})
+
+
+router.get('/events/remove/:uid',
+    passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
+    axios.get('http://localhost:8000/api/events/remove/' + req.params.uid, {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+    .then( () => res.redirect('/user/events'))
+    .catch( erro => {
+        console.log('Erro na remoção de events: ' + erro)
+        res.render('error', {error: erro, message: 'Erro na remoção de events'})
+    })
+})
+
+// Works Route
+router.get('/works', 
+    passport.authenticate('jwt', {session : false}), (req, res, next) => {
+    axios.get('http://localhost:8000/api/works/', {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+    .then( works => {
+        res.render('Front/works', {works: works.data, user: req.user}) 
+    })
+    .catch( erro => {
+        console.log('Erro na consulta de Obras: ' + erro)
+        res.render('error', {error: erro, message: 'My bad...'})
+    })
+})
+
+
+
 module.exports = router;

@@ -63,6 +63,9 @@ module.exports.getById = id => {
 }
 
 module.exports.insert = article => {
+    var date = new Date(article.date)
+    var newdate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+    article.date = newdate
     return Article.create(article)
 }
 
@@ -74,6 +77,11 @@ module.exports.updateArticle = async (_id,title,author,date,content,utype) => {
     
     if(!date)
         date = article.date
+    else {
+        var olddate = new Date(date)
+        var newdate = olddate.getFullYear() + "-" + olddate.getMonth() + "-" + olddate.getDate()
+        date = newdate
+    }
     
     if(utype==0 || article.author==author) {
         await Article.findByIdAndUpdate({_id: _id},{$set: {title: title, author: author, date: date, content: content}})

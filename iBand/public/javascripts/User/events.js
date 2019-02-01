@@ -49,7 +49,7 @@ $(()=>{
           $.ajax({
                type: 'POST',
                contentType: 'application/json',
-               url: 'http://localhost:8000/admin/events/update/',
+               url: 'http://localhost:8000/user/events/update/',
                data: JSON.stringify({_id: $('#_field').text(), author: $('#author').val(),local: $('#local').val(), theme: $('#theme').val(),  description: $('#description').val(), date: $('#date').val(), hour: $('#hour').val(), duration: parseInt($('#duration').val())}),
                success: p => {
                     $('#newEventForm').hide();
@@ -67,7 +67,7 @@ $(()=>{
           $.ajax({
                type: 'POST',
                contentType: 'application/json',
-               url: 'http://localhost:8000/admin/events/',
+               url: 'http://localhost:8000/user/events/',
                data: JSON.stringify({author: $('#author').val(), local: $('#local').val(), theme: $('#theme').val(),  description: $('#description').val(), date: $('#date').val(), hour: $('#hour').val(), duration: parseInt($('#duration').val())}),
                success: p => {
                     $('#newEventForm').hide();

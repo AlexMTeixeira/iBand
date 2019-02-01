@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport')
 var axios = require('axios')
+var formidable = require('formidable')
 
 // Users Routes
 router.get('/users', 
@@ -295,6 +296,23 @@ router.get('/works/remove/:uid',
         res.render('error', {error: erro, message: 'Erro na remoção de obras'})
     })
 })
+
+router.post('/works',passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+
+    var form = new formidable.IncomingForm()
+    var r = JSON.stringify('')
+    form.parse(req,(erro,fields,files)=>{
+        console.log(files)
+      var fenviado = files.file.path
+      var fnovo = './public/images/'+files.file.name
+      r = JSON.stringify(files.file.name)
+      fs.rename(fenviado,fnovo,erro1=>{
+        if(!erro1)
+          res.json(r)
+        else res.render('error', {error:erro1})
+      })
+    })
+  })
 
 // Generel Routes
 router.get('/', passport.authenticate('jwtAdmin', {session: false}) , (req, res, next) => {

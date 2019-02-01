@@ -22,8 +22,8 @@ block content
                         b(id="Htitle"+a._id)= a.title
                     .w3-col.l4.s4.m4.w3-container
                         b.w3-hide-small(id="Hauthor"+a._id)= a.author
-                    .w3-col.l3.s3.m3.w3-container
-                        b(id="Hcontent"+a._id)= a.content
+                    .w3-col.l3.s3.m3.w3-container.w3-small
+                        p(id="Hcontent"+a._id)= a.content
 
                     .w3-col.l2.s2.m2.w3-container
                         b(id="Hdate"+a._id)= a.date
