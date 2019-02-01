@@ -4,7 +4,7 @@ var Article = require('../models/articleModel')
 module.exports.list = async () => {
     return await Article
     .find()
-    .sort({date: -1})
+    .sort({date: 1})
     .exec()
 }
 
@@ -64,7 +64,7 @@ module.exports.getById = id => {
 
 module.exports.insert = article => {
     var date = new Date(article.date)
-    var newdate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
+    var newdate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
     article.date = newdate
     return Article.create(article)
 }
@@ -79,7 +79,7 @@ module.exports.updateArticle = async (_id,title,author,date,content,utype) => {
         date = article.date
     else {
         var olddate = new Date(date)
-        var newdate = olddate.getFullYear() + "-" + olddate.getMonth() + "-" + olddate.getDate()
+        var newdate = olddate.getFullYear() + "-" + (olddate.getMonth()+1) + "-" + olddate.getDate()
         date = newdate
     }
     

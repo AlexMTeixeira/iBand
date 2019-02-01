@@ -1,8 +1,8 @@
 each e in events
     li.w3-bar
-        b.w3-bar-item.w3-hide-small(style="width:10%")= e.theme    
-        
         .w3-bar-item(style="width:60%")
+            b= e.theme
+            br
             b= e.author
             br
             b= e.local

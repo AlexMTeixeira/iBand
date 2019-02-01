@@ -10,6 +10,7 @@ const zip = new StreamZip({
 module.exports.list = async () => {
     return await Work
             .find()
+            .sort({type: 1})
             .exec()
 }
 module.exports.getByTitle = tit => {
@@ -18,6 +19,10 @@ module.exports.getByTitle = tit => {
         .exec()
         .catch(err => console.log('gbt error: '+err))
 }
+
+
+
+
 module.exports.insert = work => {
     return Work.create(work)
 } 

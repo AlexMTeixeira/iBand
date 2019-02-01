@@ -3,6 +3,7 @@ var User = require('../models/userModel')
 module.exports.list = async () => {
     return await User
             .find()
+            .sort({name: 1})
             .exec()
 }
 

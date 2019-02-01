@@ -4,7 +4,7 @@ var Event = require('../models/eventModel')
 module.exports.list = () => {
     return Event
         .find()
-        .sort({date: -1})
+        .sort({date: 1})
         .exec()
 }
 
@@ -39,7 +39,7 @@ module.exports.listFromDate = data => {
 // Lista de noticias com Data maior que uma dada
 module.exports.listUntilDate = date => {
     var date_object = new Date();
-    var actual_date = date_object.getDate() + '-' + date_object.getMonth() + '-' + date_object.getFullYear();
+    var actual_date = date_object.getDate() + '-' + (date_object.getMonth()+1) + '-' + date_object.getFullYear();
 
     return Event
     .find({date: {$gte: actual_date, $lte: date}})

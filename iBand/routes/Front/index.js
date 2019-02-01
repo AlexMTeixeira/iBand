@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport')
 var axios = require('axios')
+var formidable = require('formidable')
+var fs = require('fs')
 
 // General Routes
 
@@ -221,6 +223,21 @@ router.get('/works',
     })
 })
 
+router.post('/works',passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
+
+    var form = new formidable.IncomingForm()
+    var r = JSON.stringify('')
+    form.parse(req,(erro,fields,files)=>{
+      var fenviado = files.file.path
+      var fnovo = './public/works/'+files.file.name
+      r = JSON.stringify(files.file.name)
+      fs.rename(fenviado,fnovo,erro1=>{
+        if(!erro1)
+          res.json(r)
+        else res.render('error', {error:erro1})
+      })
+    })
+  })
 
 
 module.exports = router;
