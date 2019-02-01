@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var articleSchema =  new Schema({
-    date : {type: Date, required: true},
+    date : {type: String, required: true},
     title : {type: String, required: true},
     content : {type: String, required: true},
     author : {type: String, required: true}

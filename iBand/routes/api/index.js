@@ -84,30 +84,33 @@ router.post('/users/update', passport.authenticate('jwtAdmin', {session: false})
 })
 
 // Articles Routes
-router.get('/articles', (req, res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+router.get('/articles',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
         ArticleController.list()
             .then( articles => {
                 res.jsonp(articles) 
             })
             .catch(error => res.status(500).send('Error on getting Users'))
-    }) (req, res, next)
 })
 
-router.get('/articles/:aid', (req, res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+router.get('/articles/top5',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    ArticleController.topList()
+        .then( articles => {
+            res.jsonp(articles) 
+        })
+        .catch(error => res.status(500).send('Error on getting Users'))
+})
+
+router.get('/articles/:aid',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
         ArticleController.getById(req.params.aid)
             .then( article => res.jsonp(article))
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
-    }) (req, res, next)
 })
 
-router.post('/articles', (req,res,next)=>{
-    passport.authenticate('jwtProd', async (error, user, info) => {
+router.post('/articles',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
         var author
         
         if(user.utype==0) author = req.body.author
-        else author = user.email
+        else author = req.user.email
         
         var title = req.body.title
         var date = req.body.date
@@ -115,61 +118,61 @@ router.post('/articles', (req,res,next)=>{
         ArticleController.insert({title,author,date,content})
                 .then(() => res.status(200).send('Article Created'))
                 .catch(error => res.status(500).send('Erro na criação de artigo!'))
-    }) (req, res, next)
 })
 
-router.post('/articles/update', (req,res,next)=>{
-    passport.authenticate('jwtProd', async (error, user, info) => {
+router.post('/articles/update',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
         var _id = req.body._id
         var title = req.body.title
+        var user = req.user
 
         var author
         if(user.utype==0) author = req.body.author
         else author = user.email
 
-        var utype = user.utype
+        var utype = req.user.utype
         
         var date = req.body.date
         var content = req.body.content
         ArticleController.updateArticle(_id,title,author,date,content,utype)
                 .then(() => res.status(200).send('Article Updated'))
                 .catch(error => res.status(500).send('Erro no update de artigo!'))
-    }) (req, res, next)
 })
 
-router.get('/articles/remove/:uid', (req,res,next)=>{
-    passport.authenticate('jwtProd', async (error, user, info) => {
-        ArticleController.delete(req.params.uid,user.email,user.utype)
+router.get('/articles/remove/:uid',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
+        ArticleController.delete(req.params.uid,req.user.email,req.user.utype)
                 .then(() => res.status(200).send('Article Removed'))
                 .catch(error => res.status(500).send('Erro na remoção de Article!'))
-    }) (req, res, next)
 })
 
 // Events Routes
-router.get('/events', (req, res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+router.get('/events',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
         EventController.list()
             .then( events => {
                 res.jsonp(events) 
             })
             .catch(error => res.status(500).send('Error on getting Users'))
-    }) (req, res, next)
 })
 
-router.get('/events/:aid', (req, res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+router.get('/events/top5',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    EventController.topList()
+        .then( articles => {
+            res.jsonp(articles) 
+        })
+        .catch(error => res.status(500).send('Error on getting Users'))
+})
+
+router.get('/events/:aid',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
         EventController.getById(req.params.aid)
             .then( event => res.jsonp(event) )
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
-    }) (req, res, next)
 })
 
-router.post('/events', (req,res,next)=>{
-    passport.authenticate('jwtProd', async (error, user, info) => {
+
+router.post('/events',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
         var author
         
-        if(user.utype==0) author = req.body.author
-        else author = user.email
+        if(req.user.utype==0) author = req.body.author
+        else author = req.user.email
 
         var local = req.body.local
         var theme = req.body.theme
@@ -180,17 +183,15 @@ router.post('/events', (req,res,next)=>{
         EventController.insert({author,local,theme,description,date,hour,duration})
                 .then(() => res.status(200).send('Event Created'))
                 .catch(error => res.status(500).send('Erro na criação de evento!'))
-    }) (req, res, next)
 })
 
-router.post('/events/update', (req,res,next)=>{
-    passport.authenticate('jwtProd', async (error, user, info) => {
+router.post('/events/update',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
         var author
         
         if(user.utype==0) author = req.body.author
-        else author = user.email
+        else author = req.user.email
 
-        var utype = user.utype
+        var utype = req.user.utype
         var _id = req.body._id
         var local = req.body.local
         var theme = req.body.theme
@@ -201,35 +202,28 @@ router.post('/events/update', (req,res,next)=>{
         EventController.updateEvent(_id,local,theme,description,date,hour,duration,author,utype)
                 .then(() => res.status(200).send('Event Updated'))
                 .catch(error => res.status(500).send('Erro no update de evento:'))
-    }) (req, res, next)
 })
 
-router.get('/events/remove/:uid', (req,res,next)=>{
-    passport.authenticate('jwtProd', async (error, user, info) => {
-        EventController.delete(req.params.uid,user.email,user.utype)
+router.get('/events/remove/:uid',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
+        EventController.delete(req.params.uid,req.user.email,req.user.utype)
                 .then(() => res.status(200).send('Event Removed'))
                 .catch(error => res.status(500).send('Erro na remoção de Event!'))
-    }) (req, res, next)
 })
 
 // Events Routes
-router.get('/works', (req, res, next) => {
-    passport.authenticate('jwt', async (error, user, info) => {
+router.get('/works',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
         WorkController.list()
             .then( works => {
                 res.jsonp(works) 
             })
             .catch(error => res.status(500).send('Error on getting Users'))
-    }) (req, res, next)
 })
 
 
-router.get('/works/remove/:uid', (req,res,next)=>{
-    passport.authenticate('jwtAdmin', async (error, user, info) => {
+router.get('/works/remove/:uid',  passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
         WorkController.delete(req.params.uid)
                 .then(() => res.status(200).send('Works Removed'))
                 .catch(error => res.status(500).send('Erro na remoção de Works!'))
-    }) (req, res, next)
 })
 
 

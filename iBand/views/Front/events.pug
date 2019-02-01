@@ -3,43 +3,38 @@ extends layout
 block content
     .w3-container.w3-theme-l1
         h1.w3-theme Events List
-        a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_event_modal" style="width:auto;") Create Event
-        br
+        if(user.utype==1)
+            a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_event_modal" style="width:auto;") Create Event
+            br
         br
         ul.w3-ul.w3-card-4
-
-            li.w3-bar.w3-theme-d1
-                .w3-col.l2.s2.m2.w3-container  Theme
-                .w3-col.l3.s3.m3.w3-container  Author
-                .w3-col.l1.s1.m1.w3-container  Local
-                .w3-col.l3.s3.m3.w3-container  Description
-                .w3-col.l2.s2.m2.w3-container  Date
-                .w3-col.l1.s1.m1.w3-right-align.w3-container Actions
-
             each e in events
-                li.w3-bar.w3-container
-                    .w3-col.l2.s2.m2.w3-container
-                        b(id="Htheme"+e._id)= e.theme    
-                    .w3-col.l3.s3.m3.w3-container
-                        b(id="Hauthor"+e._id)= e.author
-                    .w3-col.l1.s1.m1.w3-container
-                        b(id="Hlocal"+e._id)= e.local
-                    .w3-col.l3.s3.m3.w3-container.w3-small
-                        p(id="Hdescription"+e._id)= e.description 
-                    .w3-col.l2.s2.m2.w3-container
-                        b(id="Hdate"+e._id)= e.date + " " + e.hour
-                        br
-                        b= 'Duration: ' + e.duration
+                li.w3-bar
 
-                    .w3-col.l1.s1.m1.w3-right-align
-                        button.edit.w3-button(id=""+e._id) &#9881;
-                        a.w3-button(href='http://localhost:8000/admin/events/remove/' + e._id) &#9760;
-
-                    .w3-col.l12.m12.s12
-                            each i in e.interested
-                                span= i + "; "
+                    if(user.email == e.author)
+                        .w3-bar-item.w3-theme.w3-large.w3-right
+                            button.edit.w3-button(id=""+e._id) &#9881;
+                            a.w3-button(href='http://localhost:8000/user/events/remove/' + e._id) &#9760;
                     
+                    b.w3-bar-item.w3-hide-small(id="Htheme"+e._id, style="width:10%")= e.theme    
+                    
+                    .w3-bar-item(style="width:60%")
+                        b(id="Hauthor"+e._id)= e.author
+                        br
+                        b(id="Hlocal"+e._id)= e.local
+                        br
+                        p(id="Hdescription"+e._id).w3-small= e.description 
+                        br
+                        p= "Interested: "
+                            each i in e.interested
+                                span= i + "; "                            
 
+                    .w3-bar-item(style="width:20%")
+                        span= "Date:" + e.date + " " + e.hour 
+                        br
+                        span= "Duration: "+e.duration+"Min"
+                        br
+    
     //- Register TAB Form
     .w3-modal(id="newEventForm")
       form.w3-modal-content.w3-card-4.w3-animate-zoom
@@ -76,6 +71,6 @@ block content
                     input(type='number', placeholder="Duration in Minutes", id="duration" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")     
             br
             button.w3-button.w3-theme-d5(id="newEventButton") Add Article
-            button.w3-button.w3-theme-d5(id="updateEventButton") Update Article      
+            button.w3-button.w3-theme-d5(id="updateEventButton") Update Article
 
-    script(src='/javascripts/Admin/events.js')
+    script(src='/javascripts/User/events.js')

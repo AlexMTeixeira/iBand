@@ -3,10 +3,12 @@ extends layout
 block content
     .w3-container.w3-theme-l1
         h1.w3-theme Articles List
-        a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_article_modal" style="width:auto;") Create Article
-        br
+        if(user.utype==1)
+            a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_article_modal" style="width:auto;") Create Article
+            br
         br
         ul.w3-ul.w3-card-4
+
             li.w3-bar.w3-theme-d1
                 .w3-col.l2.s2.m2.w3-container Title
                 .w3-col.l4.s4.m4.w3-container Author
@@ -15,18 +17,24 @@ block content
                 .w3-col.l1.s1.m1.w3-right-align.w3-container Actions
 
             each a in articles
-                li.w3-bar.w3-container
+                li.w3-bar
                     .w3-col.l2.s2.m2.w3-container
                         b(id="Htitle"+a._id)= a.title
                     .w3-col.l4.s4.m4.w3-container
                         b.w3-hide-small(id="Hauthor"+a._id)= a.author
-                    .w3-col.l3.s3.m3.w3-container.w3-small
-                        p(id="Hcontent"+a._id)= a.content
+                    .w3-col.l3.s3.m3.w3-container
+                        b(id="Hcontent"+a._id)= a.content
+
                     .w3-col.l2.s2.m2.w3-container
                         b(id="Hdate"+a._id)= a.date
+                    
                     .w3-col.l1.s1.m1.w3-right-align.w3-container
-                        button.edit.w3-button(id=""+a._id) &#9881;
-                        a.w3-button(href='http://localhost:8000/admin/articles/remove/' + a._id) &#9760;
+                        if(user.email==a.author)
+                            button.edit.w3-button(id=""+a._id) &#9881;
+                            a.w3-button(href='http://localhost:8000/user/articles/remove/' + a._id) &#9760;
+                        else
+                            b= ""
+
 
     //- Register TAB Form
     .w3-modal(id="newArticleForm")
@@ -42,7 +50,7 @@ block content
             input(type='text', placeholder="Enter Title", id="title" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
             label
                 b Author
-            input(type='text', placeholder="Enter Author", id="author", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            input(type='text', value=""+user.email, id="author", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;", readonly='readonly')
             label
                 b Date
             input(type='date', placeholder="First and Last Name", id="date" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
@@ -57,4 +65,4 @@ block content
 
 
 
-    script(src='/javascripts/Admin/articles.js')
+    script(src='/javascripts/User/articles.js')

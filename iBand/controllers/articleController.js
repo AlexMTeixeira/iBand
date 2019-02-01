@@ -8,6 +8,17 @@ module.exports.list = async () => {
     .exec()
 }
 
+// 5 noticias
+module.exports.topList = async () => {
+    var date = new Date();
+    var stringDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ date.getDate()
+    return await Article
+        .find({date: {$lt: stringDate}})
+        .sort({date: -1})
+        .limit(5)
+        .exec()
+}
+
 // Lista de noticias com Data maior que uma dada
 module.exports.listByDate = date => {
     return Article
@@ -75,7 +86,7 @@ module.exports.updateArticle = async (_id,title,author,date,content,utype) => {
 module.exports.delete = async (id,email, utype) => {
     article = await this.getById(id)
 
-    if(utype==0 || article.author==author) {
+    if(utype==0 || article.author==email) {
         await Article
             .remove({_id: id })
             .exec()
