@@ -36,7 +36,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
     console.log("Mongo ready: " + mongoose.connection.readyState)
   })
   .catch(erro => console.log("Erro de conexão: " + erro))
-
+/* Chamada tem de seguir este padrão
 var WorkController=require('./controllers/workController')
 if(fs.existsSync('./temp')){
   del.sync(['./temp/**'])
@@ -49,13 +49,14 @@ zip.on('ready', () => {
         var obj = {_id:"m2700"}
         WorkController.addWorkSIP(obj)
         WorkController.toJsonFolder(obj)
+        WorkController.removeFromSIP(obj)
       }
       else 
         console.log('Não encontrei o SIP.')
       zip.close();
   });
 })
-
+*/
 //Passport Autentication
 app.use(session({
   genid: req => {

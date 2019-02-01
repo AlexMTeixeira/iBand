@@ -102,3 +102,15 @@ module.exports.cleanUp = () => {
       del.sync(['./temp/**'])
     })
 }
+module.exports.removeFromSIP = fich =>{
+    fs.readFile('./temp/json/iBanda-SIP.json','utf8',(err,data)=>{
+        if(!err){     
+            var sip = JSON.parse(data)
+            sip.files.splice(sip.files.findIndex(v=>v === fich._id),1)
+            fs.writeFile('./temp/json/iBanda-SIP.json', JSON.stringify(sip),'utf8',()=>{
+                console.log('SIP alterado (DEL)')
+            })
+        }
+        else console.log('Erro na leitura do SIP')
+    })
+}
