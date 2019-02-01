@@ -74,3 +74,31 @@ module.exports.treatZip = () =>{
         });
     });
 }
+module.exports.addWorkSIP = fich =>{
+    fs.readFile('./temp/json/iBanda-SIP.json','utf8',(err,data)=>{
+        if(!err){     
+            var sip = JSON.parse(data)
+            sip.files.push(fich._id)
+            fs.writeFile('./temp/json/iBanda-SIP.json', sip,'utf8',()=>{
+                console.log('SIP alterado')
+            })
+        }
+        else console.log('Erro na leitura do SIP')
+        
+    })
+}
+module.exports.toJsonFolder = fich =>{
+    var objWr = fich
+    console.log(objWr)
+    fs.writeFile(`./temp/json/${objWr._id}.json`, objWr,'utf8',()=>{
+        console.log('ficheiro adicionado com sucesso')
+    })
+}
+module.exports.cleanUp = () => {
+    if(fs.existsSync('./sheets.zip'))
+        fs.unlinkSync('./sheets.zip')
+    zipFolder('./temp/','./sheets.zip',(err)=>{
+      if(err) console.log(err)
+      del.sync(['./temp/**'])
+    })
+}

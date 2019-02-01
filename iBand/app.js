@@ -11,7 +11,7 @@ var FileStore = require('session-file-store')(session)
 var passport = require('passport')
 var StreamZip =require('node-stream-zip')
 const del = require('del')
-
+var zipFolder = require('zip-folder')
 var APIRouter   = require('./routes/api/index')
 var adminRouter = require('./routes/Admin/index')
 var frontRouter = require('./routes/Front/index')
@@ -28,17 +28,33 @@ var app = express();
 
 // Base de dados
 mongoose.connect('mongodb://127.0.0.1:27017/iBand', {useNewUrlParser: true})
-      .then(()=> {
-        // mongoose.connection.db.dropCollection('works', (err,result)=>{
-        //   if(err) console.log(err)
-        //   else console.log('apagado')
-        // })
-        console.log("Mongo ready: " + mongoose.connection.readyState)
-      })
-      .catch(erro => console.log("Erro de conexão: " + erro))
+  .then(()=> {
+    // mongoose.connection.db.dropCollection('works', (err,result)=>{
+    //   if(err) console.log(err)
+    //   else console.log('apagado')
+    // })
+    console.log("Mongo ready: " + mongoose.connection.readyState)
+  })
+  .catch(erro => console.log("Erro de conexão: " + erro))
 
 var WorkController=require('./controllers/workController')
-
+if(fs.existsSync('./temp')){
+  del.sync(['./temp/**'])
+}
+fs.mkdirSync('temp')
+zip.on('ready', () => {
+  zip.extract('sheets/', './temp', err => {
+      console.log(err ? 'ERRO extr SIP'+err : 'SIP Extraido');
+      if(fs.existsSync('./temp/json/iBanda-SIP.json')){
+        var obj = {_id:"m2700"}
+        WorkController.addWorkSIP(obj)
+        WorkController.toJsonFolder(obj)
+      }
+      else 
+        console.log('Não encontrei o SIP.')
+      zip.close();
+  });
+})
 
 //Passport Autentication
 app.use(session({
