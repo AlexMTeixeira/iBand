@@ -4,12 +4,12 @@ var passport = require('passport')
 var axios = require('axios')
 var formidable = require('formidable')
 var fs = require('fs')
-
+var WorkController=require('../../controllers/workController')
 // Users Routes
 router.get('/users', 
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/users/', {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -27,7 +27,7 @@ router.get('/users',
 router.get('/users/:uid', 
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
         axios.get('http://localhost:8000/api/users/' + req.params.uid, {
-            withCrede1ntials: true,
+            withCredentials: true,
             headers: {
                 'Authorization': 'Bearer ' + req.session.token
             }
@@ -45,7 +45,7 @@ router.get('/users/:uid',
 router.get('/users/activate/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/users/activate/' + req.params.uid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -60,7 +60,7 @@ router.get('/users/activate/:uid',
 router.get('/users/deactivate/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/users/deactivate/' + req.params.uid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -75,7 +75,7 @@ router.get('/users/deactivate/:uid',
 router.get('/users/remove/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/users/remove/' + req.params.uid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -90,7 +90,7 @@ router.get('/users/remove/:uid',
 router.post('/users/update',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.post('http://localhost:8000/api/users/update/', req.body, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -106,7 +106,7 @@ router.post('/users/update',
 router.post('/articles',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.post('http://localhost:8000/api/articles/', req.body, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -121,7 +121,7 @@ router.post('/articles',
 router.get('/articles', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/articles/', {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -139,7 +139,7 @@ router.get('/articles',
 router.get('/articles/:aid', 
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/articles/' + req.params.aid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -157,7 +157,7 @@ router.get('/articles/:aid',
 router.post('/articles/update',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.post('http://localhost:8000/api/articles/update/', req.body, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -172,7 +172,7 @@ router.post('/articles/update',
 router.get('/articles/remove/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/articles/remove/' + req.params.uid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -188,7 +188,7 @@ router.get('/articles/remove/:uid',
 router.get('/events', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/events/', {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -205,7 +205,7 @@ router.get('/events',
 router.post('/events', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
     axios.post('http://localhost:8000/api/events/', req.body, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -220,7 +220,7 @@ router.post('/events',
 router.post('/events/update', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
     axios.post('http://localhost:8000/api/events/update', req.body, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -235,7 +235,7 @@ router.post('/events/update',
 router.get('/events/:eid', 
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/events/' + req.params.eid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -253,7 +253,7 @@ router.get('/events/:eid',
 router.get('/events/remove/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/events/remove/' + req.params.uid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -269,7 +269,7 @@ router.get('/events/remove/:uid',
 router.get('/works', 
     passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/works/', {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
@@ -286,33 +286,38 @@ router.get('/works',
 router.get('/works/remove/:uid',
     passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     axios.get('http://localhost:8000/api/works/remove/' + req.params.uid, {
-        withCrede1ntials: true,
+        withCredentials: true,
         headers: {
             'Authorization': 'Bearer ' + req.session.token
         }
     })
-    .then( () => res.redirect('/admin/works'))
+    .then( () => {
+      res.redirect('/admin/works')
+    })
     .catch( erro => {
         console.log('Erro na remoção de obras: ' + erro)
         res.render('error', {error: erro, message: 'Erro na remoção de obras'})
     })
 })
 
-router.post('/works',passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
-
-    var form = new formidable.IncomingForm()
-    var r = JSON.stringify('')
-    form.parse(req,(erro,fields,files)=>{
-      var fenviado = files.file.path
-      var fnovo = './public/works/'+files.file.name
-      r = JSON.stringify(files.file.name)
-      fs.rename(fenviado,fnovo,erro1=>{
-        if(!erro1)
-          res.json(r)
-        else res.render('error', {error:erro1})
-      })
+router.post('/works',passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => { 
+  var form = new formidable.IncomingForm()
+  var r = JSON.stringify('')
+  form.parse(req,(erro,fields,files)=>{
+    var fenviado = files.file.path
+    var fnovo = './temp/json/'+files.file.name
+    r = JSON.stringify(files.file.name)
+    fs.rename(fenviado,fnovo,erro1=>{
+      if(!erro1){
+        fs.readFile(fnovo,'utf8',(err,data)=>{
+          WorkController.addWorkSIP(JSON.parse(data))
+          res.jsonp(fnovo)
+        })
+      }
+      else res.render('error', {error:erro1})
     })
   })
+})
 
 // Logs Route
 router.get('/logs', 
@@ -331,7 +336,6 @@ router.get('/logs',
         res.render('error', {error: erro, message: 'My bad...'})
     })
 })
-
 // Generel Routes
 router.get('/', passport.authenticate('jwtAdmin', {session: false}) , (req, res, next) => {
   res.render('Admin/index')

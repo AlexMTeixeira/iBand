@@ -243,6 +243,8 @@ router.get('/works/remove/:uid',  passport.authenticate('jwtAdmin', {session: fa
         WorkController.delete(req.params.uid)
                 .then(() => res.status(200).send('Works Removed'))
                 .catch(error => res.status(500).send('Erro na remoção de Works!'))
+        WorkController.removeFromSIP(req.params.uid)
+
 })
 
 // Logs Routes
