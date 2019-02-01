@@ -109,7 +109,7 @@ router.get('/articles/:aid',  passport.authenticate('jwt', {session: false}), (r
 router.post('/articles',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
         var author
         
-        if(user.utype==0) author = req.body.author
+        if(req.user.utype==0) author = req.body.author
         else author = req.user.email
         
         var title = req.body.title
@@ -188,7 +188,7 @@ router.post('/events',  passport.authenticate('jwtProd', {session: false}), (req
 router.post('/events/update',  passport.authenticate('jwtProd', {session: false}), (req, res, next) => {
         var author
         
-        if(user.utype==0) author = req.body.author
+        if(req.user.utype==0) author = req.body.author
         else author = req.user.email
 
         var utype = req.user.utype

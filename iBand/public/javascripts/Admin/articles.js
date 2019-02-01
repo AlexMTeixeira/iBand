@@ -48,7 +48,7 @@ $(()=>{
                type: 'POST',
                contentType: 'application/json',
                url: 'http://localhost:8000/admin/articles/update/',
-               data: JSON.stringify({_id: $('#_field').text(),title: $('#title').val(), author: $('#author').val(), date: new Date($('#date').val()), content: $('#content').val()}),
+               data: JSON.stringify({_id: $('#_field').text(),title: $('#title').val(), author: $('#author').val(), date: $('#date').val(), content: $('#content').val()}),
                success: p => {
                     $('#newArticleForm').hide();
                     location.reload();
@@ -66,7 +66,7 @@ $(()=>{
                type: 'POST',
                contentType: 'application/json',
                url: 'http://localhost:8000/admin/articles/',
-               data: JSON.stringify({title: $('#title').val(), author: $('#author').val(), date: new Date($('#date').val()), content: $('#content').val()}),
+               data: JSON.stringify({title: $('#title').val(), author: $('#author').val(), date: $('#date').val(), content: $('#content').val()}),
                success: p => {
                     $('#newArticleForm').hide();
                     location.reload();
