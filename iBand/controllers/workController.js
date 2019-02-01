@@ -79,7 +79,7 @@ module.exports.addWorkSIP = fich =>{
         if(!err){     
             var sip = JSON.parse(data)
             sip.files.push(fich._id)
-            fs.writeFile('./temp/json/iBanda-SIP.json', sip,'utf8',()=>{
+            fs.writeFile('./temp/json/iBanda-SIP.json', JSON.stringify(sip),'utf8',()=>{
                 console.log('SIP alterado')
             })
         }
