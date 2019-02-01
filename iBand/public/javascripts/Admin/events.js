@@ -1,6 +1,22 @@
 var regexEmail = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
 
 $(()=>{
+
+    $('#export_events').click((e) => {
+        e.preventDefault()
+      
+        $.ajax({
+             type: 'GET',
+             contentType: 'application/json',
+             url: 'http://localhost:8000/api/events/export',
+             success: p => {
+                 window.location.href = 'http://localhost:8000/'+p
+             },
+             error: e => {  
+                  alert('Fail on Export')  
+             }
+        })
+    })
     
     $('#create_event_modal').click(()=>{
         $('#newEventForm').show()

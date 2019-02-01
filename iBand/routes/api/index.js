@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var jsonfile = require('jsonfile')
 var jwt = require('jsonwebtoken')
 var passport = require('passport')
 var UserController = require('../../controllers/usersController')
@@ -47,7 +48,6 @@ router.post('/register', passport.authenticate('registo', {
 router.get('/users',  passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     UserController.list()
         .then(users => {
-            LogController.insert({user_id:req.user._id, action:'users list'})
             res.jsonp(users)
         })
         .catch(error => res.status(500).send('Error on getting Users'))
@@ -55,10 +55,7 @@ router.get('/users',  passport.authenticate('jwtAdmin', {session: false}), (req,
 
 router.get('/users/:uid', passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
     UserController.getById(req.params.uid)
-            .then(dados => {
-                LogController.insert({user_id:req.user._id, action:'user view ' + req.params.uid})
-                res.jsonp(dados)
-            })
+            .then(dados => res.jsonp(dados))
             .catch(error => res.status(500).send('Erro na consulta de utilizador!'))
 })
 
@@ -157,6 +154,20 @@ router.get('/events',  passport.authenticate('jwt', {session: false}), (req, res
         EventController.list()
             .then( events => {
                 res.jsonp(events) 
+            })
+            .catch(error => res.status(500).send('Error on getting Users'))
+})
+// Events Routes
+router.get('/events/export',  passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
+        EventController.list()
+            .then( events => {
+                jsonfile.writeFile('public/events/'+req.user._id+'.json', events, (err) => {
+                    if (err) { 
+                        console.log(err)
+                        return res.status(500).send('Erro na exportação de agenda!'+err)
+                    }
+                    res.jsonp('events/'+req.user._id+'.json')
+                })
             })
             .catch(error => res.status(500).send('Error on getting Users'))
 })
