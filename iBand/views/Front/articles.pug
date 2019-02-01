@@ -1,0 +1,68 @@
+extends layout
+
+block content
+    .w3-container.w3-theme-l1
+        h1.w3-theme Articles List
+        if(user.utype==1)
+            a.w3-button.w3-theme-d3.w3-card.w3-right(id="create_article_modal" style="width:auto;") Create Article
+            br
+        br
+        ul.w3-ul.w3-card-4
+
+            li.w3-bar.w3-theme-d1
+                .w3-col.l2.s2.m2.w3-container Title
+                .w3-col.l4.s4.m4.w3-container Author
+                .w3-col.l3.s3.m3.w3-container Content
+                .w3-col.l2.s2.m2.w3-container Date
+                .w3-col.l1.s1.m1.w3-right-align.w3-container Actions
+
+            each a in articles
+                li.w3-bar
+                    .w3-col.l2.s2.m2.w3-container
+                        b(id="Htitle"+a._id)= a.title
+                    .w3-col.l4.s4.m4.w3-container
+                        b.w3-hide-small(id="Hauthor"+a._id)= a.author
+                    .w3-col.l3.s3.m3.w3-container
+                        b(id="Hcontent"+a._id)= a.content
+
+                    .w3-col.l2.s2.m2.w3-container
+                        b(id="Hdate"+a._id)= a.date
+                    
+                    .w3-col.l1.s1.m1.w3-right-align.w3-container
+                        if(user.email==a.author)
+                            button.edit.w3-button(id=""+a._id) &#9881;
+                            a.w3-button(href='http://localhost:8000/user/articles/remove/' + a._id) &#9760;
+                        else
+                            b= ""
+
+
+    //- Register TAB Form
+    .w3-modal(id="newArticleForm")
+      form.w3-modal-content.w3-card-4.w3-animate-zoom
+        span.w3-display-topright.w3-button(id="close_modal") &times;
+        .w3-container.w3-padding-16
+            label(id="idField")
+                b= "ID: "
+                span(id="_field")
+            br
+            label
+                b Title
+            input(type='text', placeholder="Enter Title", id="title" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Author
+            input(type='text', value=""+user.email, id="author", required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;", readonly='readonly')
+            label
+                b Date
+            input(type='date', placeholder="First and Last Name", id="date" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            label
+                b Content
+            input(type='text', placeholder="Text Content", id="content" ,required, style="width: 100%;padding: 12px 20px;margin: 8px 0;display: inline-block;border: 1px solid #ccc;box-sizing: border-box;")
+            br
+            button.w3-button.w3-theme-d5(id="newArticleButton") Add Article
+            button.w3-button.w3-theme-d5(id="updateArticleButton") Update Article      
+
+
+
+
+
+    script(src='/javascripts/User/articles.js')
