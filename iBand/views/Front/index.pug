@@ -16,22 +16,16 @@ block content
           else 
             span= " Admin."
       hr
-      a.w3-button(href="http://localhost:8000/user/settings/"+user._id) Settings
       if(user.utype==0)
         br
         a.w3-button(href="http://localhost:8000/admin") Admin View
 
     .w3-container.w3-cell
       h3 News
-      ul.w3-ul.w3-card-4(id="newsList")
+      ul.w3-ul.w3-card-4.w3-container(id="newsList")
       hr
       h3 Events
-      ul.w3-ul.w3-card-4(id="eventsList")
+      ul.w3-ul.w3-card-4.w3-container(id="eventsList")
     
-  //- Footer
-  br
-  .w3-container.w3-theme-d5
-    footer.w3-center.w3-padding-16
-      p Powered by Group ?? For PRI
 
     script(src='/javascripts/User/home.js')

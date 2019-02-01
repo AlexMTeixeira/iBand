@@ -82,7 +82,7 @@ module.exports.updateEvent = async (_id,local,theme,description,date,hour,durati
         duration = event.duration
 
     if(utype==0 || event.author==author) {
-        await Event.findByIdAndUpdate({_id: _id},{$set: {local: local, theme: theme, description: description, date: date, hour: hour, duration: duration}})
+        await Event.findByIdAndUpdate({_id: _id},{$set: {local: local, author: author, theme: theme, description: description, date: date, hour: hour, duration: duration}})
             .exec()
     } else {
         console.log("User type: " + utype)

@@ -8,7 +8,8 @@ html
   body
     //- Navbar (On top)
     .w3-container.w3-theme-d5.w3-bar.w3-card-4
-        b.w3-bar-item.w3-mobile iBand
+        a.w3-bar-item.w3-button.w3-mobile(href="http://localhost:8000/")
+          b iBand
         .w3-right.w3-mobile
             a.w3-bar-item.w3-button(id='getEvents', href="http://localhost:8000/user/events") Events
             a.w3-bar-item.w3-button(id='getWorks', href="http://localhost:8000/user/works") Musical Works
@@ -16,3 +17,9 @@ html
             a(href='/logout').w3-bar-item.w3-button Logout
 
     block content
+
+    //- Footer
+    br
+    .w3-container.w3-theme-d5
+      footer.w3-center.w3-padding-16
+        p Powered by Group 14 For PRI

@@ -314,6 +314,24 @@ router.post('/works',passport.authenticate('jwtAdmin', {session: false}), (req, 
     })
   })
 
+// Logs Route
+router.get('/logs', 
+    passport.authenticate('jwtAdmin', {session : false}), (req, res, next) => {
+    axios.get('http://localhost:8000/api/logs/', {
+        withCrede1ntials: true,
+        headers: {
+            'Authorization': 'Bearer ' + req.session.token
+        }
+    })
+    .then( logs => {
+        res.render('Admin/logs', {logs: logs.data}) 
+    })
+    .catch( erro => {
+        console.log('Erro na consulta de Logs: ' + erro)
+        res.render('error', {error: erro, message: 'My bad...'})
+    })
+})
+
 // Generel Routes
 router.get('/', passport.authenticate('jwtAdmin', {session: false}) , (req, res, next) => {
   res.render('Admin/index')

@@ -20,7 +20,7 @@ router.post('/login', async (req,res,next) => {
             req.login(user, {session: false}, async (error) => {
                 if(error) return next(error)
                 const myuser = {_id: user._id, email: user.email, utype: user.utype}
-                const token = jwt.sign({user: myuser}, 'pri2018_iBand')
+                const token = jwt.sign({user: myuser}, 'pri2018_iBand', { expiresIn: '1h' })
                 req.user.token = token
                 req.session.token = token
 
@@ -157,7 +157,7 @@ router.get('/events',  passport.authenticate('jwt', {session: false}), (req, res
             })
             .catch(error => res.status(500).send('Error on getting Users'))
 })
-// Events Routes
+
 router.get('/events/export',  passport.authenticate('jwtAdmin', {session: false}), (req, res, next) => {
         EventController.list()
             .then( events => {
@@ -229,7 +229,7 @@ router.get('/events/remove/:uid',  passport.authenticate('jwtProd', {session: fa
                 .catch(error => res.status(500).send('Erro na remoção de Event!'))
 })
 
-// Events Routes
+// Works Routes
 router.get('/works',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
         WorkController.list()
             .then( works => {
@@ -245,5 +245,13 @@ router.get('/works/remove/:uid',  passport.authenticate('jwtAdmin', {session: fa
                 .catch(error => res.status(500).send('Erro na remoção de Works!'))
 })
 
+// Logs Routes
+router.get('/logs',  passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    LogController.list()
+        .then( logs => {
+            res.jsonp(logs) 
+        })
+        .catch(error => res.status(500).send('Error on getting Users'))
+})
 
 module.exports = router

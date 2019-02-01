@@ -9,7 +9,8 @@ html
     //- Navbar (On top)
     .w3-top
         .w3-theme-d5.w3-bar
-            b.w3-bar-item.w3-mobile iBand
+            a.w3-bar-item.w3-button.w3-mobile(href="http://localhost:8000/")
+                b iBand
             .w3-right.w3-mobile
                 button.w3-bar-item.w3-button(style="width:auto;", id="login_modal_button") LogIn
                 button.w3-bar-item.w3-button(style="width:auto;" id="register_modal_button") Register
@@ -54,3 +55,9 @@ html
             button.w3-button.w3-theme-d5(id="RegisterButton") Register
 
     block content
+
+    //- Footer
+    br
+    .w3-container.w3-theme-d5
+      footer.w3-center.w3-padding-16
+        p Powered by Group 14 For PRI

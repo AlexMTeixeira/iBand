@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    .w3-container.w3-theme-l1
+        h1.w3-theme Logs
+        br
+        br
+        ul.w3-ul.w3-card-4
+
+            li.w3-bar.w3-theme-d1
+                .w3-col.l3.s3.m3.w3-container  User
+                .w3-col.l7.s7.m7.w3-container  Data
+                .w3-col.l2.s2.m2.w3-container  Action
+
+            each l in logs
+                li.w3-bar.w3-container
+                    .w3-col.l3.s3.m3.w3-container
+                        p= l.user_id    
+                    .w3-col.l7.s7.m7.w3-container
+                        p= l.date
+                    .w3-col.l2.s2.m2.w3-container
+                        p= l.action
+                    
+                    
