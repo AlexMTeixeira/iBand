@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport')
 var axios = require('axios')
 var formidable = require('formidable')
+var fs = require('fs')
 
 // Users Routes
 router.get('/users', 
@@ -302,9 +303,8 @@ router.post('/works',passport.authenticate('jwtAdmin', {session: false}), (req, 
     var form = new formidable.IncomingForm()
     var r = JSON.stringify('')
     form.parse(req,(erro,fields,files)=>{
-        console.log(files)
       var fenviado = files.file.path
-      var fnovo = './public/images/'+files.file.name
+      var fnovo = './public/works/'+files.file.name
       r = JSON.stringify(files.file.name)
       fs.rename(fenviado,fnovo,erro1=>{
         if(!erro1)
