@@ -7,30 +7,38 @@ block content
         br
         br
         ul.w3-ul.w3-card-4
+
+            li.w3-bar.w3-theme-d1
+                .w3-col.l2.s2.m2.w3-container  Theme
+                .w3-col.l3.s3.m3.w3-container  Author
+                .w3-col.l1.s1.m1.w3-container  Local
+                .w3-col.l3.s3.m3.w3-container  Description
+                .w3-col.l2.s2.m2.w3-container  Date
+                .w3-col.l1.s1.m1.w3-right-align.w3-container Actions
+
             each e in events
-                li.w3-bar
-                    .w3-bar-item.w3-theme.w3-large.w3-right
+                li.w3-bar.w3-container
+                    .w3-col.l2.s2.m2.w3-container
+                        b(id="Htheme"+e._id)= e.theme    
+                    .w3-col.l3.s3.m3.w3-container
+                        b(id="Hauthor"+e._id)= e.author
+                    .w3-col.l1.s1.m1.w3-container
+                        b(id="Hlocal"+e._id)= e.local
+                    .w3-col.l3.s3.m3.w3-container.w3-small
+                        p(id="Hdescription"+e._id)= e.description 
+                    .w3-col.l2.s2.m2.w3-container
+                        b(id="Hdate"+e._id)= e.date + " " + e.hour
+                        br
+                        b= 'Duration: ' + e.duration
+
+                    .w3-col.l1.s1.m1.w3-right-align
                         button.edit.w3-button(id=""+e._id) &#9881;
                         a.w3-button(href='http://localhost:8000/admin/events/remove/' + e._id) &#9760;
-                    
-                    b.w3-bar-item.w3-hide-small(id="Htheme"+e._id, style="width:10%")= e.theme    
-                    
-                    .w3-bar-item(style="width:60%")
-                        b(id="Hauthor"+e._id)= e.author
-                        br
-                        b(id="Hlocal"+e._id)= e.local
-                        br
-                        p(id="Hdescription"+e._id).w3-small= e.description 
-                        br
-                        p= "Interested: "
-                            each i in e.interested
-                                span= i + "; "                            
 
-                    .w3-bar-item(style="width:20%")
-                        span= "Date:" + e.date + " " + e.hour 
-                        br
-                        span= "Duration: "+e.duration+"Min"
-                        br
+                    .w3-col.l12.m12.s12
+                            each i in e.interested
+                                span= i + "; "
+                    
 
     //- Register TAB Form
     .w3-modal(id="newEventForm")

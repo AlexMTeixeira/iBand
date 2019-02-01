@@ -7,34 +7,26 @@ block content
         br
         br
         ul.w3-ul.w3-card-4
-
             li.w3-bar.w3-theme-d1
-                .w3-col.l3.s3.m3 Title
-                .w3-col.l2.s2.m2 Author
-                .w3-col.l4.s4.m4 Content
-                .w3-col.l1.s1.m1 Date
-                .w3-col.l1.s1.m1 ID
-                .w3-col.l1.s1.m1.w3-right-align Actions
+                .w3-col.l2.s2.m2.w3-container Title
+                .w3-col.l4.s4.m4.w3-container Author
+                .w3-col.l3.s3.m3.w3-container Content
+                .w3-col.l2.s2.m2.w3-container Date
+                .w3-col.l1.s1.m1.w3-right-align.w3-container Actions
 
             each a in articles
-                li.w3-bar
-                    .w3-col.l3.s3.m3
+                li.w3-bar.w3-container
+                    .w3-col.l2.s2.m2.w3-container
                         b(id="Htitle"+a._id)= a.title
-                    .w3-col.l2.s2.m2
+                    .w3-col.l4.s4.m4.w3-container
                         b.w3-hide-small(id="Hauthor"+a._id)= a.author
-                    .w3-col.l4.s4.m4
-                        b(id="Hcontent"+a._id)= a.content
-
-                    .w3-col.l1.s1.m1
+                    .w3-col.l3.s3.m3.w3-container.w3-small
+                        p(id="Hcontent"+a._id)= a.content
+                    .w3-col.l2.s2.m2.w3-container
                         b(id="Hdate"+a._id)= a.date
-                    .w3-col.l1.s1.m1
-                        b= a._id
-                    
-                    .w3-col.l1.s1.m1.w3-right-align
+                    .w3-col.l1.s1.m1.w3-right-align.w3-container
                         button.edit.w3-button(id=""+a._id) &#9881;
                         a.w3-button(href='http://localhost:8000/admin/articles/remove/' + a._id) &#9760;
-                        
-
 
     //- Register TAB Form
     .w3-modal(id="newArticleForm")
