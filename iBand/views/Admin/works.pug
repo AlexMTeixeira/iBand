@@ -39,6 +39,29 @@ block content
                         .w3-large.w3-right
                             a.w3-button(href='http://localhost:8000/admin/works/remove/' + w._id) &#9760;
 
+                    .w3-col.l12.s12.m12.w3-block.w3-button
+                        b.w3-button.w3-light-grey.accordion(id="instruments-header-"+w._id) Instruments
+                    
+                    .w3-col.l12.s12.m12.w3-container.w3-hide(id="instruments-content-"+w._id)
+                        if w.instruments
+                            .w3-container
+                                table.w3-table
+                                    tr
+                                        th Nome
+                                        th Partitura
+                                        th Voz 
+                                    each i in w.instruments
+                                        tr
+                                            td= i.name
+                                            td
+                                                if i.exists
+                                                    a(href='/'+i.path)= i.filename
+                                                else
+                                                    span= i.filename.replace('.pdf', '')
+                                            td= i.voz
+
+
+
 
     //- Register TAB Form
     .w3-modal(id="newWorkForm")
