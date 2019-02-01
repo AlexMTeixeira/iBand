@@ -4,7 +4,19 @@ var Event = require('../models/eventModel')
 module.exports.list = () => {
     return Event
         .find()
-        .sort({day: -1})
+        .sort({date: -1})
+        .exec()
+}
+
+
+// 5 eventos
+module.exports.topList = async () => {
+    var date = new Date();
+    var stringDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ date.getDate()
+    return await Event
+        .find({date: {$lt: stringDate}})
+        .sort({date: -1})
+        .limit(5)
         .exec()
 }
 
@@ -81,7 +93,7 @@ module.exports.updateEvent = async (_id,local,theme,description,date,hour,durati
 module.exports.delete = async (id,email,utype) => {
     event = await this.getById(id)
 
-    if(utype==0 || event.author==author) {
+    if(utype==0 || event.author==email) {
         await Event
             .remove({_id: id })
             .exec()
